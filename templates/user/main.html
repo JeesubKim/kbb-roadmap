@@ -1,0 +1,12 @@
+{% load allauth %}
+{% block content %}
+{% element h1 %}
+Profile
+{% endelement %}
+<p>Your profile</p>
+<small>{{user.username}}</small>
+<small>{{user.get_full_name}}</small>
+<small>{{user.email}}</small>
+<small>{{user.last_login}}</small>
+<!-- <small>{{user.get_lastname}}</small> -->
+{% endblock content %}
