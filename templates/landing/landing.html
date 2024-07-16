@@ -1,1 +1,31 @@
-Landing page 지 뭐
+{% extends 'base.html' %}
+
+{% block title %}
+(주) 곡반 보더스 / KBB
+{% endblock %}
+
+
+
+{% block content %}
+
+<section class="container">
+    <h1 class="container__title"> (주) 곡반보더스 / KBB </h1>
+    <div class="introduction">
+        <img class="intro__picture" />
+        <div class="intro__content">
+            <p>
+                곡반 / 인계 <span class="highlight highlight__red"> 핵불주먹 </span>으로 단합 된 주식회사 <span
+                    class="highlight highlight__bold">곡반 보더스(이하 KBB)</span>에 오신것을 환영 합니다
+            </p>
+            <p>
+                인생은 짧지만 더 짧아지고 싶다면 <span class="highlight highlight__red"> 핵불주먹 </span>의 심기를 한번 거슬러 보십시오
+            </p>
+            <p>
+                KBB에 대해 더 자세히 알고싶고 인생또한 짧아지고 싶다면 아래 버튼을 누르시기 바랍니다
+            </p>
+            <a class="intro__learnmore" href="history/"> Learn more </a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
