@@ -1,0 +1,14 @@
+{% block section %}
+
+<section class="section__component {{class}}">
+    {% for img in images}
+    <img src={{img.src}} alt={{img.alt}} class={{img.class}}>
+    {% endfor %}
+    <h2 class="section__title"> {{ title }}</h2>
+    <p class="section__content">
+        {{ content }}
+    </p>
+
+</section>
+
+{% endblock %}

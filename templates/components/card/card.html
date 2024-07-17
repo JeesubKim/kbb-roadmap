@@ -1,3 +1,8 @@
 {% block card %}
+<div class="card">
+    <h1 class="card__title">{{ title }}</h1>
 
+    <p class="card__content">{{ content }}</p>
+    <img src="{{img_src}}" alt="{{img_alt}}" class="card__img">
+</div>
 {% endblock %}

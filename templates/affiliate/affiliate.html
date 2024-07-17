@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+(주) 곡반 보더스 / KBB - 계열사
+{% endblock %}
+
+{% block content %}
+
+{% for card in cards %}
+
+
+{% include "components/card/card.html" with title=card.title content=card.content img_src=card.img.src img_alt=card.img.alt %}
+{% endfor %}
+
+
+{% endblock%}
