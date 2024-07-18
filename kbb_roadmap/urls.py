@@ -21,16 +21,16 @@ urlpatterns = [
     path('', include('landing.urls')),
     path('history/', include('history.urls')),
     path('affiliate/', include('affiliate.urls')),
+    path('org/', include('org.urls')),
+    path('roadmap/', include('roadmap.urls')),
 
     path('admin/', admin.site.urls),
 
     path('user/', include('user.urls')),
     path('user/', include("allauth.urls")),
     
-    # path('history/', include('history/urls')),
-    # path('roadmap/', include('roadmap/urls')),
-    # path('org/', include('org/urls')),
-    # path('report/', include('report/urls')),
-    # path('donation/', include('donation/urls')),
+    
+    # path('report/', include('report.urls')),
+    # path('donation/', include('donation.urls')),
 
 ] 

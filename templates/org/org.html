@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}
+(주) 곡반 보더스 / KBB - 조직도
+{% endblock %}
+
+
+
+{% block content %}
+
+{% include "org/node.html" with nodes=nodes %}
+{% endblock %}
