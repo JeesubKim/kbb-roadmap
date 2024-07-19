@@ -23,6 +23,7 @@ urlpatterns = [
     path('affiliate/', include('affiliate.urls')),
     path('org/', include('org.urls')),
     path('roadmap/', include('roadmap.urls')),
+    path('event/', include('event.urls')),
 
     path('admin/', admin.site.urls),
 

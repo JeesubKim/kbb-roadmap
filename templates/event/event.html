@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+(주) 곡반 보더스 / KBB - 행사
+{% endblock %}
+
+{% block content %}
+
+{% for event in events %}
+
+{% include "org/node.html" with nodes=events %}
+{% endfor %}
+
+
+{% endblock%}
