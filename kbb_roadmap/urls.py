@@ -28,10 +28,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('user/', include('user.urls')),
+    path('donation/', include('donation.urls')),
     path('user/', include("allauth.urls")),
     
     
     # path('report/', include('report.urls')),
-    # path('donation/', include('donation.urls')),
 
 ] 

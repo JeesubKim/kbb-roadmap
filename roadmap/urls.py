@@ -6,6 +6,7 @@ from . import views
 
 urlpatterns = [
     
-    path('', views.main, name="main"),
+    path('', views.main, name="roadmap"),
+    path('create/', views.new_roadmap, name="roadmap.create"),
     
 ]

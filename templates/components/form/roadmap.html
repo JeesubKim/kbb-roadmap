@@ -1,0 +1,12 @@
+<form class="form form-{{class}}">
+
+    {% for item in items %}
+        
+        {% if item.type == "text" %}
+            {% include "components/form/input/text.html" with class=item.class label=item.label %}
+
+        {% elif item.type == "select" %}
+            {% include "components/form/select/select.html" with class=item.class label=item.label options=item.options %}
+        {% endif %}
+    {% endfor %}
+</form>

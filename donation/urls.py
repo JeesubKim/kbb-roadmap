@@ -6,6 +6,6 @@ from . import views
 
 urlpatterns = [
     
-    path('', views.main, name="affiliate"),
+    path('', views.main, name="donation"),
     
 ]

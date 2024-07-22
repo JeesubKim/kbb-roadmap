@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+(주) 곡반 보더스 / KBB - 로드맵 생성
+{% endblock %}
+
+{% block nav%}
+{% include "components/nav/roadmap/roadmap_create_nav.html" %}
+{% endblock %}
+
+{% block content %}
+
+{% include "components/form/roadmap.html" with class='roadmap__create' items=roadmap_items %}
+{% endblock %}

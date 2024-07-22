@@ -1,0 +1,15 @@
+<label class="select select-{{class}}" for="{{class}}">{{ label }}</label>
+
+<select name="class" id="{{class}}">
+    <option value="">
+        {% if default != None %}
+            { default }
+        {% else %}
+            --Please choose an option--
+        {% endif %}
+    </option>
+    {% for option in options %}
+        <option class="option option-{option.value}" value="{option.value}">{{option.display}}</option>
+    {% endfor %}
+  
+</select>

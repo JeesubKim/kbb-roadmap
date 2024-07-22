@@ -4,21 +4,23 @@
     <div class="left">
         <span class="kbb-roadmap__title">
 
-            <a href="/">(주) 곡반 보더스</a>
+            <a href="{% url 'landing' %}">(주) 곡반 보더스</a>
         </span>
 
         <ul class="nav__list">
-            <li class="nav__item" name="history"> <a href="/history">연혁</a></li>
-            <li class="nav__item" name="affiliate"> <a href="/affiliate">계열사</a> </li>
-            <li class="nav__item" name="org"> <a href="/org">조직도</a> </li>
-            <li class="nav__item" name="roadmap"> <a href="/roadmap">로드맵</a> </li>
-            <li class="nav__item" name="event"> <a href="/event">행사</a></li>
+            <li class="nav__item" name="history"> <a href="{% url 'history' %}">연혁</a></li>
+            <li class="nav__item" name="affiliate"> <a href="{% url 'affiliate' %}">계열사</a> </li>
+            <li class="nav__item" name="org"> <a href="{% url 'org' %}">조직도</a> </li>
+            <li class="nav__item" name="roadmap"> <a href="{% url 'roadmap' %}">로드맵</a> </li>
+            <li class="nav__item" name="event"> <a href="{% url 'event' %}">행사</a></li>
         </ul>
     </div>
     <div class="right">
+        {% block nav-items %}
+        {% endblock %}
         <ul class="nav__list">
-            <li class="nav__item" name="support"> <a href="/donation">후원하기</a> </li>
-            <li class="nav__item" name="account"> <a href="/user">계정</a> </li>
+            <li class="nav__item" name="support"> <a href="{% url 'donation' %}">후원하기</a> </li>
+            <li class="nav__item" name="account"> <a href="{% url 'user' %}">계정</a> </li>
         </ul>
     </div>
 </nav>
