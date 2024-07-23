@@ -1,12 +1,12 @@
 <form class="form form-{{class}}">
+    {% csrf_token %}
 
-    {% for item in items %}
-        
-        {% if item.type == "text" %}
-            {% include "components/form/input/text.html" with class=item.class label=item.label %}
-
-        {% elif item.type == "select" %}
-            {% include "components/form/select/select.html" with class=item.class label=item.label options=item.options %}
-        {% endif %}
+    
+    {% for field in form %}
+        <div class="field__wrapper">
+            {{ field.errors }}
+            {{ field.label_tag }} {{ field }}
+        </div>
     {% endfor %}
+    <button type="submit"> 저장 </button>
 </form>
