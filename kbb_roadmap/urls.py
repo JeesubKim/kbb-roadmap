@@ -17,18 +17,19 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+
 urlpatterns = [
     path('', include('landing.urls')),
-    path('history/', include('history.urls')),
-    path('affiliate/', include('affiliate.urls')),
-    path('org/', include('org.urls')),
-    path('roadmap/', include('roadmap.urls')),
-    path('event/', include('event.urls')),
+    path('history/', include('history.urls', namespace='history')),
+    path('affiliate/', include('affiliate.urls', namespace='affiliate')),
+    path('org/', include('org.urls', namespace='org')),
+    path('roadmap/', include('roadmap.urls', namespace='roadmap')),
+    path('event/', include('event.urls', namespace='event')),
 
     path('admin/', admin.site.urls),
 
-    path('user/', include('user.urls')),
-    path('donation/', include('donation.urls')),
+    path('user/', include('user.urls', namespace='user')),
+    path('donation/', include('donation.urls', namespace='donation')),
     path('user/', include("allauth.urls")),
     
     

@@ -3,9 +3,9 @@ from django.urls import include
 
 
 from . import views
-
+app_name="org"
 urlpatterns = [
     
-    path('', views.main, name="org"),
+    path('', views.main, name="main"),
     
 ]

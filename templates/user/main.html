@@ -8,5 +8,18 @@ Profile
 <small>{{user.get_full_name}}</small>
 <small>{{user.email}}</small>
 <small>{{user.last_login}}</small>
+
+
+    <button type="button"> 
+        {% if user.is_authenticated %}        
+        
+            <a href="{% url 'user:logout' %}"> 로그아웃 </a>
+        {% else %}
+            <a href="{% url 'user:login' %}"> 로그인 </a>
+        {% endif %}
+    
+    </button>
+
+
 <!-- <small>{{user.get_lastname}}</small> -->
 {% endblock content %}

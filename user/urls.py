@@ -3,11 +3,11 @@ from django.urls import include
 
 
 from . import views
-
+app_name='user'
 urlpatterns = [
     
-    path('', views.main, name="user"),
+    path('', views.main, name="main"),
     path('login/', views.login, name="login"),
-    path('logout/', views.logout, name='logout'), # 코드 추가하기
+    path('logout/', views.logout, name='logout'), 
     # path("user/", )
 ]
