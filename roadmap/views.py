@@ -1,6 +1,9 @@
 from django.shortcuts import render, get_object_or_404
+from django.db.models import Q
 from django.http import HttpResponseRedirect
+from django.urls import reverse
 from user.models import User as user_model
+from .models import Roadmap as roadmap_model
 from django.contrib.auth import get_user_model
 from . import models
 from .forms import RoadmapNameForm
@@ -10,8 +13,15 @@ from .forms import RoadmapNameForm
 def main(request):
     is_authenticated(request)
 
-    
-    return render(request, 'roadmap/roadmap.html')
+    if request.method == "GET":
+        
+        roadmaps = models.Roadmap.objects.all()
+        
+        context = {
+            "roadmaps" : roadmaps
+        }
+        
+        return render(request, 'roadmap/roadmap.html', context=context)
 
 
 
@@ -26,7 +36,7 @@ def new_roadmap(request):
         return render(request, "roadmap/roadmap_create.html", context=context)
     
     elif request.method == "POST":
-        print("POST 옴")
+        
         form = RoadmapNameForm(request.POST)
 
         if form.is_valid():
@@ -46,7 +56,8 @@ def new_roadmap(request):
                 assignee = user,
             )
             new_roadmap.save()
-        return render(request, 'roadmap/roadmap.html')
+        return HttpResponseRedirect(reverse("roadmap:main"))
+        
         
             
         

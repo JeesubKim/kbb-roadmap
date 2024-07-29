@@ -11,5 +11,28 @@
 
 {% block content %}
 
+<table class="roadmaps">
+    <thead>
+        <tr>
+            <th class="roadmaps__th"> 로드맵 </th>
+            <th class="roadmaps__th"> 상태 </th>
+            <th class="roadmaps__th"> 할당 </th>
+            <th class="roadmaps__th"> 요청자 </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        {% for roadmap in roadmaps %}
+            <tr class="roadmaps__roadmap">
+                <td class="roadmaps__roadmap__item">{{roadmap.roadmap_name}}</td>
+                <td class="roadmaps__roadmap__item">{{roadmap.status}}</td>
+                <td class="roadmaps__roadmap__item">{{roadmap.assignee}}</td>
+                <td class="roadmaps__roadmap__item">{{roadmap.requester}}</td>
+                
+            </tr>
+       
+        {% endfor %}
+    </tbody>
+</table>
 
 {% endblock %}
