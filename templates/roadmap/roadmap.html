@@ -18,6 +18,8 @@
             <th class="roadmaps__th"> 상태 </th>
             <th class="roadmaps__th"> 할당 </th>
             <th class="roadmaps__th"> 요청자 </th>
+            <th class="roadmaps__th"> 등록일 </th>
+            
         </tr>
     </thead>
     <tbody>
@@ -28,6 +30,12 @@
                 <td class="roadmaps__roadmap__item">{{roadmap.status}}</td>
                 <td class="roadmaps__roadmap__item">{{roadmap.assignee}}</td>
                 <td class="roadmaps__roadmap__item">{{roadmap.requester}}</td>
+                <td class="roadmaps__roadmap__item">{{roadmap.created_at}}</td>
+                <td class="roadmaps__roadmap__item">
+                    <button type="button"> 
+                        완료
+                    </button>
+                </td>
                 
             </tr>
        

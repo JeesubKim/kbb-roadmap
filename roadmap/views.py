@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from user.models import User as user_model
 from .models import Roadmap as roadmap_model
@@ -44,18 +44,22 @@ def new_roadmap(request):
             roadmap_name = form.cleaned_data["roadmap_name"]
             assignee = form.cleaned_data["assignee"]
         
+            item = models.Roadmap.objects.filter(roadmap_name=roadmap_name)
+            print(item)
+            if len(item) == 0:
             #user = get_object_or_404(user_model, pk=request.user.id)
-            user = get_object_or_404(get_user_model(), pk=request.user.id)
-        
+                user = get_object_or_404(get_user_model(), pk=request.user.id)
 
-        
-            new_roadmap = models.Roadmap.objects.create(
-                roadmap_name = roadmap_name,
-                status = "Pending",
-                requester = user,
-                assignee = user,
-            )
-            new_roadmap.save()
+
+            
+                new_roadmap = models.Roadmap.objects.create(
+                    roadmap_name = roadmap_name,
+                    status = "Pending",
+                    requester = user,
+                    assignee = user,
+                )
+                new_roadmap.save()
+            
         return HttpResponseRedirect(reverse("roadmap:main"))
         
         
