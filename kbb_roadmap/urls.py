@@ -26,6 +26,7 @@ urlpatterns = [
     path('roadmap/', include('roadmap.urls', namespace='roadmap')),
     path('event/', include('event.urls', namespace='event')),
     path('report/', include('report.urls', namespace='report')),
+    path('notification/', include('notification.urls', namespace='notification')),
 
     path('admin/', admin.site.urls),
 

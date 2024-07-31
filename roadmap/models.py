@@ -3,14 +3,7 @@ from django.db import models
 from user import models as user_model
 from django.contrib.auth import get_user_model
 # Create your models here.
-
-class TimestamedModel(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=True)
-    
-
-    class Meta:
-        abstract = True
+from kbb_roadmap.models import TimestamedModel
 
 class Roadmap(TimestamedModel):
     
