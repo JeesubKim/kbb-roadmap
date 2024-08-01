@@ -7,6 +7,7 @@ from .models import Roadmap as roadmap_model
 from django.contrib.auth import get_user_model
 from . import models
 from .forms import RoadmapNameForm
+from kbb_roadmap.views import is_authenticated
 # Create your views here.
 
 
@@ -65,10 +66,4 @@ def new_roadmap(request):
         
             
         
-        
-def is_authenticated(request):
-    
-    if not request.user.is_authenticated:
-        return HttpResponseRedirect('/user/login')
-    
         
