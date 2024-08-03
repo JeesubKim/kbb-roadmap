@@ -12,8 +12,11 @@ class Notification(TimestamedModel):
     notification_type = models.CharField(blank=False, max_length=10)
     notification_link = models.TextField(blank=True)
 
+    
 
 class NotificationStatus(TimestamedModel):
     notification_id = models.ForeignKey(Notification, null=False, on_delete=models.CASCADE)
     user_id = models.ForeignKey(get_user_model(), null=False, on_delete=models.CASCADE)
     is_read = models.BooleanField(blank=False, default=False)
+
+    
