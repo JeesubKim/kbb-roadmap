@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+(주) 곡반 보더스 / KBB - 로드맵 상세페이지
+{% endblock %}
+
+
+{% block nav%}
+{% include "components/nav/roadmap/roadmap_goback_nav.html" %}
+{% endblock %}
+
+{% block content %}
+
+
+<div class="roadmap__container">
+    <section class="roadmap__content">
+        <div class="roadmap__titlebar">
+            <h1 class="roadmap__title">{{roadmap.roadmap_name}}</h1>
+            <span class="roadmap__status">{{roadmap.status}}</span>
+        </div>
+        <div class="roadmap__detail">
+            <td class="roadmap__detail__assignee">{{roadmap.assignee}}</td>
+            <td class="roadmap__detail__requester">{{roadmap.requester}}</td>
+            <td class="roadmap__detail__created_at">{{roadmap.created_at}}</td>
+            <td class="roadmap__detail__updated_at">{{roadmap.updated_at}}</td>
+        </div>
+    </section>
+    <section class="roadmap__comment">
+        {% include 'components/comment/comment.html' with comments=comments %}
+    </section>
+</div>
+{% endblock %}

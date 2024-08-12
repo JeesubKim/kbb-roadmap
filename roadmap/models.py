@@ -24,9 +24,10 @@ class RoadmapComplete(TimestamedModel):
     user_id = models.ForeignKey(get_user_model(), null=False, on_delete=models.CASCADE)
 
 
-class RoadmapComments(TimestamedModel):
+class RoadmapComment(TimestamedModel):
     author = models.ForeignKey(get_user_model(), null=False, on_delete=models.CASCADE, related_name="roadmap_comment_author")
     roadmap = models.ForeignKey(Roadmap, null=False, on_delete=models.CASCADE, related_name="roadmap")
 
-    contents = models.TextField(blank=True)
-    likes = models.ManyToManyField(get_user_model(), related_name='comment_likes')
+    comment = models.TextField(blank=True)
+    likes = models.ManyToManyField(get_user_model(), null=True, related_name='comment_likes')
+    child = models.ForeignKey('self', null=True, on_delete=models.CASCADE, related_name='comment_children')

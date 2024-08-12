@@ -1,0 +1,32 @@
+
+
+{% for comment in comments %}
+    
+    <div class="comment__container">
+        <span class="comment_author">Author: {{comment.author}}</span>
+        <p class="comment">Comment: {{comment.comment}}</p>
+        <span class="comment_updated">Created: {{comment.created_at}}</span>
+
+        <button class="comment_liked"  onclick="onLikeClicked({{comment.id}})">
+            Liked: {{comment.liked}}
+        </button>
+
+        {% if comment.child %}
+            {% include 'components/comment.html' with comments=comment.child %}
+        {% endif %}
+    </div>
+
+{% endfor %}
+
+<div class="comment__input">
+    {% include "components/form/roadmap/roadmap.html" %}
+    
+</div>
+
+
+<script>
+
+    function onLikeClicked(comment_id){
+        console.log(comment_id)
+    }
+</script>

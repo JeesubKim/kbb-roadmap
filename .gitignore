@@ -4,3 +4,6 @@
 *.py[cod]
 
 client_secret*
+
+
+*/migrations/*

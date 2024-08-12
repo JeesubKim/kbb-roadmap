@@ -25,7 +25,9 @@
     <tbody>
 
         {% for roadmap in roadmaps %}
-            <tr class="roadmaps__roadmap">
+
+        
+            <tr class="roadmaps__roadmap" onclick="window.location.href='detail/{{roadmap.id}}/'">
                 <td class="roadmaps__roadmap__item">{{roadmap.roadmap_name}}</td>
                 <td class="roadmaps__roadmap__item">{{roadmap.status}}</td>
                 <td class="roadmaps__roadmap__item">{{roadmap.assignee}}</td>
