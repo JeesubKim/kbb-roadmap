@@ -8,5 +8,79 @@
             {{ field.label_tag }} {{ field }}
         </div>
     {% endfor %}
-    <button type="submit"> 저장 </button>
+    <div id="badge_container"></div>
+    <ul id="user_search"></ul>
+    <button id="submit_btn" type="submit"> 저장 </button>
 </form>
+
+<script>
+
+
+    const assignee = document.getElementById("id_assignee")
+    const search = document.getElementById("user_search")
+    const badgeContainer = document.getElementById("badge_container")
+    assignee.addEventListener('input', ()=> {
+
+        const name = assignee.value        
+        fetch("{% url 'user:get_user_by_name' %}" + `?name=${name}`)
+            .then( response => response.json())
+            .then( data => {
+                let list = []
+                if(name !== ""){
+                    list = data.users?.map( user => {
+                    const {id, name} = user
+                    const li = document.createElement('li')
+                    li.className = "user_search__item"
+                    li.innerHTML = name
+                    li.addEventListener('click', ()=>{
+                        const badges = badgeContainer.querySelectorAll('.badge');
+                        
+                        if (badges.length === 0){
+                            addBadge(id, name)
+                            assignee.value = id
+                        }
+                    })
+                    return li
+                })
+                 
+                }
+                search.replaceChildren(...list)
+            })
+    })
+
+
+    const submit_btn = document.getElementById("submit_btn");
+    submit_btn.addEventListener('click', (event)=>{
+
+        const badges = badgeContainer.querySelectorAll('.badge');
+        
+        if (badges.length === 0){
+
+            event.preventDefault();
+            alert("리스트에 있는 사람을 선택하세요")
+        }
+    })
+
+    function addBadge(id, name) {
+        
+        const badge = document.createElement('span');
+        badge.className = 'badge';
+        badge.dataset.id = id;
+        badge.textContent = name;
+
+
+        const removeButton = document.createElement('span');
+        removeButton.className = 'remove_badge';
+        removeButton.textContent = 'x'
+        removeButton.addEventListener('click', ()=>{
+            badgeContainer.removeChild(badge);
+        })
+
+        badge.appendChild(removeButton);
+        badgeContainer.appendChild(badge);
+        
+
+
+    }
+
+</script>

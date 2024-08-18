@@ -8,7 +8,8 @@ from kbb_roadmap.views import is_authenticated
 from .forms import ReportForm
 from . import models
 def main(request):
-    is_authenticated(request)
+    if not is_authenticated(request):
+        return HttpResponseRedirect('/user/')
 
     if request.method == "GET":
         reports = models.Report.objects.all()
@@ -19,7 +20,8 @@ def main(request):
     return render(request, 'report/report.html', context=context)
 
 def new_report(request):
-    is_authenticated(request)
+    if not is_authenticated(request):
+        return HttpResponseRedirect('/user/')
 
     if request.method == "GET":
         context = {

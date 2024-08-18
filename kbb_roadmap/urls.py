@@ -34,7 +34,7 @@ urlpatterns = [
     path('donation/', include('donation.urls', namespace='donation')),
     path('user/', include("allauth.urls")),
     
-    
+    path('api/', include('rest_framework.urls', namespace='rest_framework'))
     # path('report/', include('report.urls')),
 
 ] 

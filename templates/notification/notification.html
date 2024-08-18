@@ -8,5 +8,26 @@
 
 {% block content %}
 
-알림
+<table>
+    <thead>
+        <tr>
+            <th>name</th>
+            <th>content</th>
+            <th>type</th>
+            <th>link</th>    
+        </tr>
+    </thead>
+    <tbody>
+
+        {% for noti in notifications %}
+        <tr>
+            <td>{{ noti.notification_name }}</td>
+            <td>{{ noti.notification_content }}</td>
+            <td>{{ noti.notification_type }}</td>
+            <td><a href="{{ noti.notification_link }}"> 바로가기 </a></td>
+        </tr>
+
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}

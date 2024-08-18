@@ -15,8 +15,8 @@ class Notification(TimestamedModel):
     
 
 class NotificationStatus(TimestamedModel):
-    notification_id = models.ForeignKey(Notification, null=False, on_delete=models.CASCADE)
-    user_id = models.ForeignKey(get_user_model(), null=False, on_delete=models.CASCADE)
+    notification = models.ForeignKey(Notification, null=False, on_delete=models.CASCADE)
+    user = models.ForeignKey(get_user_model(), null=False, on_delete=models.CASCADE)
     is_read = models.BooleanField(blank=False, default=False)
 
     
