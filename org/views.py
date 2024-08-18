@@ -51,7 +51,7 @@ def main(request):
                         ]
                     },
                     {
-                        "position":"행동대장",
+                        "position":"행동대장 (현 신임 교육부장 겸임)",
                         "name":"견동열",
                         "img":{
                             "src":"#",
@@ -63,7 +63,7 @@ def main(request):
                         ]
                     },
                     {
-                        "position":"교육부",
+                        "position":"일반 회원 (구 교육부장)",
                         "name":"김지섭",
                         "img":{
                             "src":"#",

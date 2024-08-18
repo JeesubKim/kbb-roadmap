@@ -34,17 +34,18 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE':10
 }
-
+SOCIALACCOUNT_LOGIN_ON_GET = True
 # Application definition
-
+# SITE_ID = 1
 INSTALLED_APPS = [
      # The following apps are required:
+    'django.contrib.sites',
+
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
 
-    'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

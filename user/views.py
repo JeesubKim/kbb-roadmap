@@ -1,8 +1,9 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import render, redirect
 from django.contrib import auth
-from django.http import HttpResponse, QueryDict,JsonResponse
-import json
+from django.http import QueryDict,JsonResponse
+
+
 # from rest_framework import permissions, viewsets
 # from rest_framework.decorators import api_view
 # from rest_framework.response import Response
@@ -10,12 +11,28 @@ import json
 # Create your views here.
 
 def main(request):
+    
+    if request.user.is_authenticated:
+        from allauth.socialaccount.models import SocialAccount
+
+        
+        users = list(SocialAccount.objects.filter(user_id=request.user.id))
+        context = {}
+        if len(users) > 0:
+        
+            picture = users[0].extra_data.get("picture")
+            
+            context = {
+                "picture":picture
+            }
+    
+        return render(request, 'user/main.html', context)
     return render(request, 'user/main.html')
 
 
 
-def login(request):
-    return render(request, 'user/login.html')
+# def login(request):
+#     return render(request, 'user/login.html')
 
 def logout(request):
     auth.logout(request)

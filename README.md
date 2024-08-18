@@ -43,7 +43,7 @@ kbb-roadmap website
 
 ## Report 조회
 1. 제보 페이지에서는 모든 제보항목이 Grid layout로 나타나야 함
-2. Header에는 "신규" 항목이 나타나야함
+2. Header에는 "신규" 항목이 나타나야함 [Done]
 3. Report는 클릭시 댓글과 1차 대댓글 까지 작성 가능
 
 ## Report 신규 생성
@@ -57,7 +57,7 @@ kbb-roadmap website
 ## Notification 조회
 
 1. 해당 User의 모든 Notification 이 조회가 되어야함 [Done]
-2. Notification 클릭시 해당 화면으로 이동, notification status 의 is_read가 True로 변경 되어야 함
+2. Notification 클릭시 해당 화면으로 이동 [Done], notification status 의 is_read가 True로 변경 되어야 함
 3. Notification status 의 is_read에 따라서 별도 분류되어야 하고 Grey 처리되어야 함
 
 
@@ -65,9 +65,9 @@ kbb-roadmap website
 # User
 
 ## Account 정보
-1. User는 Google account로 무조건 접속해야 하며, 관리자에 의해 사진이 강제 할당 될 수 있다.
-2. 계정 정보 및 로그인 시점을 보여준다
-3. 로그아웃 버튼을 제공한다
+1. User는 Google account로 무조건 접속해야 하며 사진을 가져온다. [Done]
+2. 계정 정보 및 로그인 시점을 보여준다 [Done]
+3. 로그아웃 버튼을 제공한다 [Done]
 
 ## Account 생성
-1. 무조건 Google OAuth2.0 을 사용해서만 접속 가능
+1. 무조건 Google OAuth2.0 을 사용해서만 접속 가능 [Done]
