@@ -1,21 +1,21 @@
 {% load allauth %}
 {% load socialaccount %}
 {% block content %}
-{% element h1 %}
-Profile
-{% endelement %}
-<p>Your profile</p>
 
-<img src="{{picture}}" />
-<small>{{user.username}}</small>
-<small>{{user.get_full_name}}</small>
-<small>{{user.email}}</small>
-<small>{{user.last_login}}</small>
+Profile
+
 
 
     <button type="button"> 
         {% if user.is_authenticated %}        
-        
+            <p>Your profile</p>
+
+            <img src="{{picture}}" />
+            <small>{{user.username}}</small>
+            <small>{{user.get_full_name}}</small>
+            <small>{{user.email}}</small>
+            <small>{{user.last_login}}</small>
+                
             <a href="{% url 'user:logout' %}"> 로그아웃 </a>
         {% else %}
             <a href="{% provider_login_url 'google' %}">  로그인 </a>

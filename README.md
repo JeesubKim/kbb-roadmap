@@ -71,3 +71,33 @@ kbb-roadmap website
 
 ## Account 생성
 1. 무조건 Google OAuth2.0 을 사용해서만 접속 가능 [Done]
+
+
+
+
+# How to get to the google oauth page directly
+```
+# settings.py
+SOCIALACCOUNT_LOGIN_ON_GET = True
+```
+
+# How to allow others to access test server
+
+```
+python manage.py runserver 0.0.0.0:8000
+```
+
+
+# How to make it work when `/user/` is not accessible from mobile
+```
+#settings.py
+SITE_ID = 1 # <-- Make sure SITE ID is set
+INSTALLED_APPS = [
+    'django.contrib.sites',
+    ...
+]
+```
+
+
+
+# ngrok 

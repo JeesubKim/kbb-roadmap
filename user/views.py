@@ -4,20 +4,15 @@ from django.contrib import auth
 from django.http import QueryDict,JsonResponse
 
 
-# from rest_framework import permissions, viewsets
-# from rest_framework.decorators import api_view
-# from rest_framework.response import Response
-# from serializer import UserSerializer
-# Create your views here.
-
 def main(request):
-    
+    context = {}
+    print(request.user)
     if request.user.is_authenticated:
         from allauth.socialaccount.models import SocialAccount
 
         
         users = list(SocialAccount.objects.filter(user_id=request.user.id))
-        context = {}
+        
         if len(users) > 0:
         
             picture = users[0].extra_data.get("picture")
@@ -25,9 +20,9 @@ def main(request):
             context = {
                 "picture":picture
             }
+    print("hit!!!!!!!!")
+    return render(request, 'user/main.html', context)
     
-        return render(request, 'user/main.html', context)
-    return render(request, 'user/main.html')
 
 
 

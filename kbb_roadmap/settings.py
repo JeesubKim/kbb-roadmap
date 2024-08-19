@@ -27,16 +27,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ],
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE':10
-}
+
 SOCIALACCOUNT_LOGIN_ON_GET = True
 # Application definition
-# SITE_ID = 1
+SITE_ID = 1
 INSTALLED_APPS = [
      # The following apps are required:
     'django.contrib.sites',
@@ -53,7 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'rest_framework',
+    
     'user',
     'roadmap',
     'report',
