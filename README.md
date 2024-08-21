@@ -18,7 +18,7 @@ kbb-roadmap website
 2. 모든 로드맵은 날짜순, open > 종료 로 정렬 되어야 한다 [Done]
 3. Header에 신규 생성페이지로 가는 메뉴가 나타나야 한다 [Done]
 4. 로드맵은 클릭시 댓글 작성 가능, 별도 페이지로 표시해야한다 [Done]
-5. 로드맵 승인은 로드맵 Detail 페이지에서 나타나야 하고 여기서 액션을 취할 수 있어야 한다 (승인, 승인 철회)
+5. 로드맵 승인은 로드맵 Detail 페이지에서 나타나야 하고 여기서 액션을 취할 수 있어야 한다 (승인, 승인 철회, 승인한사람의 리스트가 나타난다)
 
 ## 로드맵 신규 생성
 1. header에 뒤로가기 메뉴가 나타나야 한다 [Done]
@@ -31,7 +31,8 @@ kbb-roadmap website
 1.1 로드맵 제목이 중복되는지, [Done]
 1.2 그리고 유사도를 검사해서 60% 이상 일치할 경우 비슷한 로드맵이 존재하는데 혹시 이미 등록된것과 같은지 나타내주어야 한다 (모달)
 
-2. 로드맵이 생성 요청 > Status는 Pending > 가입자 모두에게 Notification 생성 (동의 페이지 링크 또는 Modal이 나타나야 함) > 과반 승인 시 Pending > Opened 변경
+2. 로드맵이 생성 요청 > Status는 Pending > 가입자 모두에게 Notification 생성 (동의 페이지 링크 또는 Modal이 나타나야 함) [Done] 
+과반 승인 시 Pending > Opened 변경
 
 ## 로드맵 종료
 1. 로드맵 페이지에 완료 버튼을 클릭 시 증빙서류(사진)을 제시해야 함. Status 는 Reviewing 으로 변경
@@ -100,4 +101,12 @@ INSTALLED_APPS = [
 
 
 
-# ngrok 
+# Add Google in Social app in django admin
+
+## Admin
+Social applications > Add > 
+Add `localhost:8000` in Chosen sites
+
+
+## Google Cloud
+https://console.cloud.google.com/apis/credentials

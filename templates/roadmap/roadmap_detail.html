@@ -15,14 +15,29 @@
 <div class="roadmap__container">
     <section class="roadmap__content">
         <div class="roadmap__titlebar">
-            <h1 class="roadmap__title">{{roadmap.roadmap_name}}</h1>
-            <span class="roadmap__status">{{roadmap.status}}</span>
+            <h1 class="roadmap__title">로드맵 꺼리: {{roadmap.roadmap_name}}</h1>
+            <span class="roadmap__status">상태: {{roadmap.status}}</span>
+            <div class="roadmap__agreement_list">동의 하소</div>
         </div>
         <div class="roadmap__detail">
-            <td class="roadmap__detail__assignee">{{roadmap.assignee}}</td>
-            <td class="roadmap__detail__requester">{{roadmap.requester}}</td>
-            <td class="roadmap__detail__created_at">{{roadmap.created_at}}</td>
-            <td class="roadmap__detail__updated_at">{{roadmap.updated_at}}</td>
+            <td class="roadmap__detail__assignee">
+                Assigned to 
+                <img src={{roadmap.assignee.picture}} />
+                <small>{{roadmap.assignee.name}}</small>
+            </td>
+            <td class="roadmap__detail__requester">
+                Requested by
+                <img src={{roadmap.requester.picture}} />
+                <small>{{roadmap.requester.name}}</small>
+            </td>
+            <td class="roadmap__detail__created_at">
+                Requested at
+                {{roadmap.created_at}}
+            </td>
+            <td class="roadmap__detail__updated_at">
+                Updated at
+                {{roadmap.updated_at}}
+            </td>
         </div>
     </section>
     <section class="roadmap__comment">

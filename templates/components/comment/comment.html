@@ -1,25 +1,26 @@
 
 
-{% for comment in comments %}
+{% for comment_item in comments %}
     
     <div class="comment__container">
-        <span class="comment_author">Author: {{comment.author}}</span>
-        <p class="comment">Comment: {{comment.comment}}</p>
-        <span class="comment_updated">Created: {{comment.created_at}}</span>
+        <span class="comment_author">Author: {{comment_item.comment.author}}</span>
+        <p class="comment">Comment: {{comment_item.comment.comment}}</p>
+        <span class="comment_updated">Created: {{comment_item.comment.created_at}}</span>
 
-        <button class="comment_liked"  onclick="onLikeClicked({{comment.id}})">
-            Liked: {{comment.liked}}
+        <button class="comment_liked"  onclick="onLikeClicked({{comment_item.comment.id}})">
+            Liked: {% for like in comment_item.likes %}
+                <img src="{{like.picture}}" />
+                <small> {{ like.username }}</small>
+            {% endfor %}
         </button>
 
-        {% if comment.child %}
-            {% include 'components/comment.html' with comments=comment.child %}
-        {% endif %}
+
     </div>
 
 {% endfor %}
 
 <div class="comment__input">
-    {% include "components/form/roadmap/roadmap.html" %}
+    {% include "components/form/roadmap/roadmap_comment.html" %}
     
 </div>
 
@@ -27,6 +28,24 @@
 <script>
 
     function onLikeClicked(comment_id){
+        
         console.log(comment_id)
+        const url = `/roadmap/detail/comment/likes/${comment_id}/`;
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type":"application/json",
+                "X-CSRFToken": '{{csrf_token}}'
+            }
+        })
+            .then( response => {
+                if(response.redirected){
+                    window.location.href = response.url
+                }
+                else{
+                    response.json()
+                }
+            })
+            
     }
 </script>

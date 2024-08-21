@@ -10,5 +10,7 @@ urlpatterns = [
     path('', views.main, name="main"),
     path('detail/<str:id>/', views.detail, name="detail"),
     path('create/', views.new_roadmap, name="create"),
+
+    path('detail/comment/likes/<str:id>/', views.likes, name="likes")
     
 ]

@@ -30,7 +30,7 @@ ALLOWED_HOSTS = ['*']
 
 SOCIALACCOUNT_LOGIN_ON_GET = True
 # Application definition
-SITE_ID = 1
+SITE_ID = 2
 INSTALLED_APPS = [
      # The following apps are required:
     'django.contrib.sites',

@@ -33,6 +33,6 @@ class RoadmapComment(TimestamedModel):
     child = models.ForeignKey('self', null=True, on_delete=models.CASCADE, related_name='comment_children')
 
 
-class RoadmapLikes(TimestamedModel):
+class RoadmapCommentLikes(TimestamedModel):
     user = models.ForeignKey(get_user_model(), null=False, on_delete=models.CASCADE)
     comment = models.ForeignKey(RoadmapComment, null=False, on_delete=models.CASCADE)
