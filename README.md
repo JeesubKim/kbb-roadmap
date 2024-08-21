@@ -1,6 +1,15 @@
 # kbb-roadmap
 kbb-roadmap website
 
+## Objective?
+심심풀이 땅콩 오징어 프로젝트
+
+장고를 쓸 일이 있어서 `심심풀이 프로젝트`도 하나 파서 해보는 중
+
+심심풀이지만 체계적인 `KBB` 로드맵 관리가 절실함
+
+그래서 시작함
+
 ## Requirement
 
 # FE

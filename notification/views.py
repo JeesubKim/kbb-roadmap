@@ -52,7 +52,7 @@ def create_notification(notification):
     )
 
     new_notification.save()
-    users = list(get_user_model().objects.all())
+    users = list(get_user_model().objects.filter(is_superuser=False))
     
     for user in users:
 

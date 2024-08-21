@@ -20,7 +20,7 @@ def main(request):
             context = {
                 "picture":picture
             }
-    print("hit!!!!!!!!")
+    
     return render(request, 'user/main.html', context)
     
 
@@ -38,7 +38,7 @@ def get_user_by_name(request):
     queries = QueryDict(request.META.get("QUERY_STRING", None))
     user_name = queries.get("name", None)
     
-    users = get_user_model().objects.filter(username__contains=user_name)
+    users = get_user_model().objects.filter(username__contains=user_name, is_superuser=False)
     users_list = list(users)
     
     """
