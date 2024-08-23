@@ -38,14 +38,38 @@ def detail(request, id):
         requester = {"name":roadmap[0].requester.username, "picture":requesters[0].extra_data.get("picture")}
         assignee = {"name":roadmap[0].assignee.username, "picture":assignees[0].extra_data.get("picture")}
         
+        registration_agrees = list(models.RoadmapRegistrationAgreement.objects.filter(roadmap=roadmap[0]))
+        completion_agrees = list(models.RoadmapCompletionAgreement.objects.filter(roadmap=roadmap[0]))
+        
+        users = list(get_user_model().objects.filter(is_superuser=False))
+        criteria = len(users)/2
+        registration_agreed_list = [{"name": registration_agrees[0].user.username, "picture": user.extra_data.get("picture")}for user in list(SocialAccount.objects.filter(user_id=registration_agrees[0].user.pk))]  if len(registration_agrees) > 0 else []
+        completion_agreed_list = [{"name": completion_agrees[0].user.username, "picture": user.extra_data.get("picture")}for user in list(SocialAccount.objects.filter(user_id=completion_agrees[0].user.pk))] if len(completion_agrees) > 0 else []
+        regi_rate = len(registration_agreed_list) / criteria
+        comp_rate = len(completion_agreed_list) / criteria
         roadmap_data = {
+            "roadmap_id":id,
             "roadmap_name":roadmap[0].roadmap_name,
             "status":roadmap[0].status,
             "created_at":roadmap[0].created_at,
             "updated_at":roadmap[0].updated_at,
             "requester": requester,
-            "assignee": assignee
+            "assignee": assignee,
+            "registration_agrees": {
+                "criteria":criteria,
+                "percentage": regi_rate * 100 if regi_rate <=1 else 100,
+                "total":len(registration_agreed_list),
+                "list":registration_agreed_list
+            },
+            "completion_agrees": {
+                "criteria":criteria,
+                "percentage": comp_rate * 100  if regi_rate <=1 else 100,
+                "total":len(completion_agreed_list),
+                "list":completion_agreed_list
+            }
         }
+
+        
 
         comments = models.RoadmapComment.objects.filter(roadmap=roadmap[0]) if len(roadmap) > 0 else None
 
@@ -190,3 +214,68 @@ def likes(request, id):
             item = likes.delete()
             
         return HttpResponseRedirect(reverse("roadmap:detail", args=[roadmap_id]))
+    
+def agree(request, id, type):
+    if request.method == "POST":
+        user = get_object_or_404(get_user_model(), pk=request.user.id)
+        roadmap = models.Roadmap.objects.filter(pk=id)
+        target = None
+        if type == "registration":
+            target = models.RoadmapRegistrationAgreement.objects
+            
+
+        elif type == "completion":
+            target = models.RoadmapCompletionAgreement.objects
+
+        agreements = target.filter(roadmap=roadmap[0], user=user)
+        len_agreement = len(agreements)
+        if len_agreement == 0:
+            new_agreement = target.create(
+                roadmap = roadmap[0],
+                user = user
+            )
+            new_agreement.save()        
+            len_agreement += 1
+        else:
+            agreements.delete()
+            len_agreement -= 1
+        
+
+        users = get_user_model().objects.filter(is_superuser=False)
+        criteria = len(users) / 2
+        
+        if len_agreement >= criteria:
+            
+            if type == "registration":
+                roadmap.update(status="In Progress")
+            elif type == "completion":
+                roadmap.update(status="Done")
+        else:
+            if type == "registration":
+                if roadmap[0].status == "In Progress":
+                    roadmap.update(status="Pending")
+                
+            elif type == "completion":
+                if roadmap[0].status == "Done":
+                    roadmap.update(status="In Review")
+        
+        
+
+        
+        
+        # regi_rate = len(registration_agreed_list) / criteria
+        # comp_rate = len(completion_agreed_list) / criteria
+        return HttpResponseRedirect(reverse("roadmap:detail", args=[id]))
+def complete(request, id):
+    if request.method == "POST":
+        user = get_object_or_404(get_user_model(), pk=request.user.id)
+        roadmap = models.Roadmap.objects.filter(pk=id)
+        if user == list(roadmap)[0].assignee:
+            roadmap.update(status="In Review")
+        return HttpResponseRedirect(reverse("roadmap:detail", args=[id]))
+"""
+path('detail/</likes/<str:id>/', views.likes, name="likes")
+'detail/<str:id>/agreement/<str:type>'
+'detail/<str:id>/agreement/registration'
+'detail/<str:id>/agreement/completion'
+"""

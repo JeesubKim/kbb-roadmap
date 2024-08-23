@@ -17,7 +17,64 @@
         <div class="roadmap__titlebar">
             <h1 class="roadmap__title">로드맵 꺼리: {{roadmap.roadmap_name}}</h1>
             <span class="roadmap__status">상태: {{roadmap.status}}</span>
-            <div class="roadmap__agreement_list">동의 하소</div>
+            <small class="roadmap__status_description"> 
+                {% if roadmap.status == "Pending" %}
+                    과반 동의 시 In Progress로 변경
+                {% elif roadmap.status == "In Progress" %}
+                    과반 동의 시 In Review 로 변경
+
+                {% elif roadmap.status == "In Review" %}
+                    과반 동의 시 Done 으로 변경
+                {% else %}
+                    종료
+                {% endif %}
+            </small>
+            
+            <div class="roadmap__registration_agreement">
+                <h3> 로드맵 등록 동의 명단 </h3>
+                <ul class="roadmap__registration_userlist">
+                    {% for user in roadmap.registration_agrees.list %}
+                        <img src={{user.picture}} />
+                        <small>{{user.name}}</small>
+                    {% endfor %}
+
+                </ul>
+                
+                
+                {% include 'components/progress/progressbar.html' with criteria=roadmap.registration_agrees.criteria total=roadmap.registration_agrees.total percentage=roadmap.registration_agrees.percentage%}
+
+                {% if roadmap.status == "Pending" or roadmap.status == "In Progress" %}
+                
+                    <button class="agree_btn" onclick="onAgreeClicked({{roadmap.roadmap_id}}, 'registration')">
+                        투표
+                    </button>
+                {% endif %}
+            </div>
+            {% if roadmap.status == "In Progress" %}
+                <button class="agree_btn" onclick="onCompleteClicked({{roadmap.roadmap_id}})">
+                    종료 요청
+                </button>
+            
+            {% elif roadmap.status == "In Review" or roadmap.status == "Done" %}
+            <div class="roadmap__completion_agreement">
+                <h3> 종료 동의 명단 </h3>
+                <ul class="roadmap__completion_userlist">
+                    {% for user in roadmap.completion_agrees.list %}
+                        <img src={{user.picture}} />
+                        <small>{{user.name}}</small>
+                    {% endfor %}
+                </ul>
+
+                {% include 'components/progress/progressbar.html' with criteria=roadmap.completion_agrees.criteria total=roadmap.completion_agrees.total percentage=roadmap.completion_agrees.percentage%}
+                
+                {% if roadmap.status != "Done" %}
+                <button class="agree_btn" onclick="onAgreeClicked({{roadmap.roadmap_id}}, 'completion')">
+                    투표
+                </button>
+                {% endif %}
+            </div>
+            
+            {% endif %}
         </div>
         <div class="roadmap__detail">
             <td class="roadmap__detail__assignee">
@@ -44,4 +101,50 @@
         {% include 'components/comment/comment.html' with comments=comments %}
     </section>
 </div>
+
+<script>
+
+    function onAgreeClicked(id, type){
+        'detail/<str:id>/agreement/registration'
+        'detail/<str:id>/agreement/completion'
+        const url = `/roadmap/detail/${id}/agreement/${type}/`;
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type":"application/json",
+                "X-CSRFToken": '{{csrf_token}}'
+            }
+        })
+            .then( response => {
+                if(response.redirected){
+                    window.location.href = response.url
+                }
+                else{
+                    console.log(response.json())
+                }
+            })
+            
+    }
+
+    function onCompleteClicked(id){
+        
+        const url = `/roadmap/detail/${id}/complete/`;
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type":"application/json",
+                "X-CSRFToken": '{{csrf_token}}'
+            }
+        })
+            .then( response => {
+                if(response.redirected){
+                    window.location.href = response.url
+                }
+                else{
+                    console.log(response.json())
+                }
+            })
+            
+    }
+</script>
 {% endblock %}

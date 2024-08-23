@@ -28,8 +28,6 @@
 <script>
 
     function onLikeClicked(comment_id){
-        
-        console.log(comment_id)
         const url = `/roadmap/detail/comment/likes/${comment_id}/`;
         fetch(url, {
             method: "POST",

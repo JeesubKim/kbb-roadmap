@@ -14,12 +14,12 @@ class Roadmap(TimestamedModel):
     assignee = models.ForeignKey(get_user_model(), null=False, on_delete=models.CASCADE, related_name="roadmap_assignee")
     
 
-class RoadmapAgreement(TimestamedModel):
+class RoadmapRegistrationAgreement(TimestamedModel):
     roadmap = models.ForeignKey(Roadmap, null=False, on_delete=models.CASCADE)
     user = models.ForeignKey(get_user_model(), null=False, on_delete=models.CASCADE)
 
 
-class RoadmapComplete(TimestamedModel):
+class RoadmapCompletionAgreement(TimestamedModel):
     roadmap = models.ForeignKey(Roadmap, null=False, on_delete=models.CASCADE)
     user = models.ForeignKey(get_user_model(), null=False, on_delete=models.CASCADE)
 
