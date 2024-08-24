@@ -8,22 +8,22 @@ def main(request):
     context = {
         "events": [
             {
-                "title":"초대 회원 모집 및 생존게임 in 난지 (지연 빨 초대)",
+                "title":"초대 회원 모집 및 생존게임 in 난지",
                 "subtitle":"난지 캠핑장 극기훈련",
                 "img":[{
                     "src":f"{base}/2014_3.jpg",
                     "alt":"난지캠핑장"
                 }],
-                "description":"KBB 회장 베프 동반, 모임의 기반을 다짐",
+                "description":"KBB 회장 베프 동반, 모임의 기반을 다짐 (지연 빨 초대)",
                 
             },{
-                "title":"2차 회원 모집 공고 및 오징어게임 in 둥지 (지연 빨 초대)",
+                "title":"2차 회원 모집 공고 및 오징어게임 in 둥지",
                 "subtitle":"둥지 베이스캠프 재점검 차 방문",
                 "img":[{
                     "src":f"{base}/2014_12.jpg",
                     "alt":"둥지"
                 }],
-                "description":"KBB 회장 친동생 한동열이 베프 동반",
+                "description":"KBB 회장 친동생 한동열이 베프 동반 (지연 빨 초대)",
                 
             },
             {
@@ -74,7 +74,7 @@ def main(request):
                 
             },{
                 "title":"스포스 근본 클럽을 피할 수 없음",
-                "subtitle":"회장/부회장급만 즐길 수 있는 부자 스포스. 배트민턴",
+                "subtitle":"회장/부회장급만 허락 된 부자 스포스 배트민턴",
                 "img":[{
                     "src":f"{base}/2015_b.jpg",
                     "alt":"배드민턴"
@@ -106,13 +106,15 @@ def main(request):
                 "img":[{
                     "src":f"{base}/2018_1.jpg",
                     "alt":""
-                },{
-                    "src":f"{base}/2018_2.jpg",
-                    "alt":""
-                },{
-                    "src":f"{base}/2018_3.jpg",
-                    "alt":""
-                }],
+                },
+                # {
+                #     "src":f"{base}/2018_2.jpg",
+                #     "alt":""
+                # },{
+                #     "src":f"{base}/2018_3.jpg",
+                #     "alt":""
+                # }
+                ],
                 "description":"대학원 진학으로 주먹만으로 통치하는것은 트렌드에 맞지않다고 생각, 손수 고기도 구워 줌"
             },{
                 "title":"가방끈 +1",
@@ -145,7 +147,7 @@ def main(request):
                 "title":"제보",
                 "subtitle":"KBB 제보를 받습니다",
                 "img":[{
-                    "src":"#",
+                    "src":f"{base}/handongyeol.jpg",
                     "alt":""
                 }],
                 "description":"KBB 2016~2018년 KBB 의 행방을 추적하고 있습니다. 사진이 있거나 목격하신분을 찾습니다. 연락부탁드립니다. jays.kim@hotmail.com. 비밀보장"

@@ -4,20 +4,75 @@
 (주) 곡반 보더스 / KBB - 행사
 {% endblock %}
 
+
+
+{% block style %}
+<style>
+    .events_container{
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, auto));
+        
+        gap: 2rem;
+        
+    }
+    .events_container .event{
+        display:grid;
+        grid-auto-rows: 70px 50px auto 150px;
+        width:100%;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+        border-radius: 0.35rem;
+        padding:1rem;
+        transition: 0.25s ease-in-out;
+        border-left:10px solid rgb(255, 255, 255);
+    }
+    .events_container .event:hover{
+        transform: translateY(-4px);
+        transition: 0.25s ease-in-out;
+        border-left:10px solid rgba(163, 0, 0, 0.2);
+    }
+    .events_container .event .event__title,
+    .events_container .event .event__subtitle{
+        display:flex;
+        justify-content: center;
+        
+    }
+    .events_container .event .event__imgs{
+        display: flex;
+        /* justify-content: flex-start; */
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        
+    }
+    .events_container .event img{
+        max-height:400px;
+        /* max-width:500px; */
+        max-width:100%;
+        border-radius: 0.35rem;;
+    }
+
+    .events_container .event .event__description{
+        margin-top: 3rem;
+        font-weight: 500;
+        height: 100px;
+        text-align: center;
+    }
+</style>
+{% endblock %}
 {% block content %}
 
-{% for event in events %}
-    <section class="event">
-        <h1 class="event__title">{{event.title}}</h1>
-        <h3 class="event__subtitle">{{event.subtitle}}</h3>
-        <div class="event__imgs">
-            {% for img in event.img%}
-                <img src="{{img.src}}" alt="{{img.alt}}"/>
-            {% endfor %}
-        </div>
-        <div class="event__description">{{event.description}}</div>
-    </section>
-
-    
-{% endfor %}
+<div class="events_container">
+    {% for event in events %}
+        <section class="event">
+            <h1 class="event__title">{{event.title}}</h1>
+            <h3 class="event__subtitle">{{event.subtitle}}</h3>
+            <div class="event__imgs">
+                {% for img in event.img%}
+                    <img src="{{img.src}}" alt="{{img.alt}}"/>
+                {% endfor %}
+            </div>
+            <div class="event__description">{{event.description}}</div>
+        </section>    
+    {% endfor %}
+</div>
 {% endblock%}
