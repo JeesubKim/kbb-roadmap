@@ -6,7 +6,9 @@
             <span class="org__node__name">{{node.name}}</span>
         </h1>
         
-        <img class="org__node__image" src={{node.img.src}} alt={{node.img.alt}} />
+        {% for img in node.img %}
+            <img class="org__node__image" src={{img.src}} alt={{img.alt}} />
+        {% endfor %}
         <p class="org__node__description">{{node.description}}</p>
         {% if node.children|length > 0 %}
             {% include "org/node.html" with nodes=node.children %}    

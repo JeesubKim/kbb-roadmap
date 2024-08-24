@@ -7,9 +7,17 @@
 {% block content %}
 
 {% for event in events %}
+    <section class="event">
+        <h1 class="event__title">{{event.title}}</h1>
+        <h3 class="event__subtitle">{{event.subtitle}}</h3>
+        <div class="event__imgs">
+            {% for img in event.img%}
+                <img src="{{img.src}}" alt="{{img.alt}}"/>
+            {% endfor %}
+        </div>
+        <div class="event__description">{{event.description}}</div>
+    </section>
 
-{% include "org/node.html" with nodes=events %}
+    
 {% endfor %}
-
-
 {% endblock%}

@@ -7,9 +7,7 @@
 {% block content %}
 
 {% for card in cards %}
-
-
-{% include "components/card/card.html" with title=card.title content=card.content img_src=card.img.src img_alt=card.img.alt %}
+    {% include "components/card/card.html" with title=card.title content=card.content imgs=card.img %}
 {% endfor %}
 
 
