@@ -3,11 +3,11 @@ from django.urls import include
 
 
 from . import views
-
-app_name = 'notification'
+app_name="comments"
 urlpatterns = [
     
     path('', views.main, name="main"),
-    # path('create/', views.new_roadmap, name="create"),
-    path('<str:id>/read/', views.is_read, name="is_read")
+    path('likes/<str:type>/<str:id>/', views.likes, name="likes")
+
+    # const url = `/comment/likes/${comment_id}/`;
 ]

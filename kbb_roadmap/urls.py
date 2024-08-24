@@ -32,6 +32,7 @@ urlpatterns = [
 
     path('user/', include('user.urls', namespace='user')),
     path('donation/', include('donation.urls', namespace='donation')),
+    path('comments/', include('comments.urls', namespace='comments')),
     path('user/', include("allauth.urls")),
     
     

@@ -46,9 +46,9 @@ kbb-roadmap website
 3. 과반 승인 시 In Progress 변경 [Done]
 
 ## 로드맵 종료
-1. 로드맵 페이지에 완료 버튼을 클릭 시 증빙서류(사진)을 제시해야 함. 
+1. 로드맵 페이지에 완료 버튼을 클릭 시 증빙서류(사진)을 제시해야 함. [Backlog]
 2. Status 는 In Review 으로 변경 [Done]
-3. 가입자 모두에게 Notification 생성 (동의 페이지 링크 또는 Modal이 나타나야 함) 
+3. 가입자 모두에게 Notification 생성 (동의 페이지 링크 또는 Modal이 나타나야 함)  [Done]
 4. 과반 승인시 Done 로 변경 [Done]
 
 
@@ -58,7 +58,7 @@ kbb-roadmap website
 ## Report 조회
 1. 제보 페이지에서는 모든 제보항목이 Grid layout로 나타나야 함
 2. Header에는 "신규" 항목이 나타나야함 [Done]
-3. Report는 클릭시 댓글 작성 가능
+3. Report는 클릭시 댓글 작성 가능 [Done]
 
 ## Report 신규 생성
 1. 제목, 내용, 이미지를 입력해야 함 [Done]
@@ -71,8 +71,9 @@ kbb-roadmap website
 
 1. 해당 User의 모든 Notification 이 조회가 되어야함 [Done]
 2. Notification 클릭시 해당 화면으로 이동 [Done]
-3. Notification status 의 is_read가 True로 변경 되어야 함
-4. Notification status 의 is_read에 따라서 별도 분류되어야 하고 Grey 처리되어야 함
+3. Notification status 의 is_read가 True로 변경 되어야 함 [Done]
+4. Notification status 의 is_read에 따라서 별도 분류되어야 함 [Done]
+5. Grey 처리되어야 함 
 
 
 

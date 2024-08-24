@@ -8,10 +8,10 @@ class RoadmapNameForm(forms.Form):
     
 
 
-class RoadmapCommentForm(forms.ModelForm):
+# class RoadmapCommentForm(forms.ModelForm):
 
-    class Meta:
+#     class Meta:
 
-        model = models.RoadmapComment
-        fields = ('comment', )
-        exclude = ('author', )
+#         model = models.RoadmapComment
+#         fields = ('comment', )
+#         exclude = ('author', )

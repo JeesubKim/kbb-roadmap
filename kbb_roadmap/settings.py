@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'user',
     'roadmap',
     'report',
-    'notification'
+    'notification',
+    'comments'
 ]
 
 MIDDLEWARE = [

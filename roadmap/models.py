@@ -1,6 +1,5 @@
 from django.db import models
 
-from user import models as user_model
 from django.contrib.auth import get_user_model
 # Create your models here.
 from kbb_roadmap.models import TimestamedModel
@@ -24,15 +23,15 @@ class RoadmapCompletionAgreement(TimestamedModel):
     user = models.ForeignKey(get_user_model(), null=False, on_delete=models.CASCADE)
 
 
-class RoadmapComment(TimestamedModel):
-    author = models.ForeignKey(get_user_model(), null=False, on_delete=models.CASCADE, related_name="roadmap_comment_author")
-    roadmap = models.ForeignKey(Roadmap, null=False, on_delete=models.CASCADE, related_name="roadmap")
+# class RoadmapComment(TimestamedModel):
+#     author = models.ForeignKey(get_user_model(), null=False, on_delete=models.CASCADE, related_name="roadmap_comment_author")
+#     roadmap = models.ForeignKey(Roadmap, null=False, on_delete=models.CASCADE, related_name="roadmap")
 
-    comment = models.TextField(blank=True)
+#     comment = models.TextField(blank=True)
     
-    child = models.ForeignKey('self', null=True, on_delete=models.CASCADE, related_name='comment_children')
 
 
-class RoadmapCommentLikes(TimestamedModel):
-    user = models.ForeignKey(get_user_model(), null=False, on_delete=models.CASCADE)
-    comment = models.ForeignKey(RoadmapComment, null=False, on_delete=models.CASCADE)
+
+# class RoadmapCommentLikes(TimestamedModel):
+#     user = models.ForeignKey(get_user_model(), null=False, on_delete=models.CASCADE)
+#     comment = models.ForeignKey(RoadmapComment, null=False, on_delete=models.CASCADE)

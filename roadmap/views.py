@@ -5,11 +5,13 @@ from django.urls import reverse
 
 from django.contrib.auth import get_user_model
 from . import models
-from .forms import RoadmapNameForm, RoadmapCommentForm
+from .forms import RoadmapNameForm
+from comments.forms import CommentForm
 from kbb_roadmap.views import is_authenticated
 from notification.views import create_notification
 # Create your views here.
 
+from comments.models import RoadmapComment, CommentLikes
 
 def main(request):
     if not is_authenticated(request):
@@ -31,7 +33,7 @@ def detail(request, id):
     
     if request.method == "GET":
         from allauth.socialaccount.models import SocialAccount
-        roadmap = models.Roadmap.objects.filter(id=id)
+        roadmap = list(models.Roadmap.objects.filter(id=id))
         requesters = list(SocialAccount.objects.filter(user_id=roadmap[0].requester.pk))
         assignees = list(SocialAccount.objects.filter(user_id=roadmap[0].assignee.pk))
 
@@ -40,6 +42,7 @@ def detail(request, id):
         
         registration_agrees = list(models.RoadmapRegistrationAgreement.objects.filter(roadmap=roadmap[0]))
         completion_agrees = list(models.RoadmapCompletionAgreement.objects.filter(roadmap=roadmap[0]))
+        
         
         users = list(get_user_model().objects.filter(is_superuser=False))
         criteria = len(users)/2
@@ -70,54 +73,35 @@ def detail(request, id):
         }
 
         
-
-        comments = models.RoadmapComment.objects.filter(roadmap=roadmap[0]) if len(roadmap) > 0 else None
-
+        # comments = models.RoadmapComment.objects.filter(roadmap=roadmap[0]) if len(roadmap) > 0 else None
+        # comments = 
+        
+        comments = RoadmapComment.objects.filter(roadmap=roadmap[0])
+        
         comments_list = []
-        for comment in comments:
-            likes = list(models.RoadmapCommentLikes.objects.filter(comment=comment))
 
+        for comment in comments:
+            # likes = list(models.RoadmapCommentLikes.objects.filter(comment=comment))
+            likes = list(CommentLikes.objects.filter(comment=comment.comment))
             
             liked_user_list = []
             for like in likes:
 
                 users = list(SocialAccount.objects.filter(user_id=like.user.pk))
                 if len(users) > 0:
-                    picture = users[0].extra_data.get("picture")
+                    picture = users[0].extra_data.get ("picture")
                     liked_user_list.append({"username":like.user.username, "picture":picture})
 
-            comments_list.append({"comment":comment, "likes": liked_user_list})
-
+            comments_list.append({"comment":comment.comment, "likes": liked_user_list})
 
         context = {
             "roadmap": roadmap_data,
             "comments":comments_list,
-            "form": RoadmapCommentForm()
+            "form": CommentForm()
         }
         
         return render(request, 'roadmap/roadmap_detail.html', context=context)
     
-    elif request.method == "POST":
-
-
-        form = RoadmapCommentForm(request.POST)
-
-        if form.is_valid():
-
-            comment = form.cleaned_data["comment"]
-            user = get_object_or_404(get_user_model(), pk=request.user.id)
-            roadmap = models.Roadmap.objects.filter(id=id)
-            new_comment = models.RoadmapComment.objects.create(
-                author = user,
-                roadmap = roadmap[0] if len(roadmap) > 0 else None,
-                comment = comment,
-                child = None
-            )
-
-            new_comment.save()
-
-            return HttpResponseRedirect(f'/roadmap/detail/{id}')
-
 
 def new_roadmap(request):
     if not is_authenticated(request):
@@ -159,7 +143,7 @@ def new_roadmap(request):
                     "name" : "액션 요청",
                     "content" : f"{user.username}님이 새로운 로드맵을 등록하고 {assignee_user.username}님에게 할당하였습니다.",
                     "type" : "로드맵",
-                    "link" : f"/roadmap/detail/{new_roadmap.pk}"
+                    "link" : f"/roadmap/detail/{new_roadmap.pk}/"
                 })
                 
         return HttpResponseRedirect(reverse("roadmap:main"))
@@ -167,53 +151,6 @@ def new_roadmap(request):
         
             
         
-        
-def likes(request, id):
-    
-    if not is_authenticated(request):
-        return HttpResponseRedirect('/user/')
-    
-    if request.method == "GET":
-
-        from allauth.socialaccount.models import SocialAccount
-
-        
-        
-        
-        comment = list(models.RoadmapComment.objects.filter(pk=id))
-        likes = list(models.RoadmapCommentLikes.objects.filter(comment=comment[0]))
-
-        result = []
-        for like in likes:
-            users = list(SocialAccount.objects.filter(user_id=like.user.pk))
-            picture = users[0].extra_data.get("picture")
-
-            result.append({
-                "name":like.user.username,
-                "picture": picture
-            })
-        
-        return JsonResponse({"success":True, "result": result})
-    
-
-    elif request.method == "POST":
-        user = get_object_or_404(get_user_model(), pk=request.user.id)
-        comments = list(models.RoadmapComment.objects.filter(pk=id))
-
-        likes = models.RoadmapCommentLikes.objects.filter(comment=comments[0], user=user)
-        roadmap_id = comments[0].roadmap.pk
-        
-        if len(likes) == 0:
-            new_likes = models.RoadmapCommentLikes.objects.create(
-                user = user,
-                comment = comments[0]
-            )
-            new_likes.save()
-
-        else:
-            item = likes.delete()
-            
-        return HttpResponseRedirect(reverse("roadmap:detail", args=[roadmap_id]))
     
 def agree(request, id, type):
     if request.method == "POST":
@@ -272,6 +209,12 @@ def complete(request, id):
         roadmap = models.Roadmap.objects.filter(pk=id)
         if user == list(roadmap)[0].assignee:
             roadmap.update(status="In Review")
+            create_notification({
+                    "name" : "액션 요청",
+                    "content" : f"{user.username}님이 로드맵을 종료 요청하였습니다.",
+                    "type" : "로드맵",
+                    "link" : f"/roadmap/detail/{roadmap[0].pk}/"
+                })
         return HttpResponseRedirect(reverse("roadmap:detail", args=[id]))
 """
 path('detail/</likes/<str:id>/', views.likes, name="likes")

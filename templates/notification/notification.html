@@ -8,26 +8,50 @@
 
 {% block content %}
 
-<table>
-    <thead>
-        <tr>
-            <th>name</th>
-            <th>content</th>
-            <th>type</th>
-            <th>link</th>    
-        </tr>
-    </thead>
-    <tbody>
+<h3> 새로운 알림 </h3>
+{% for noti in notifications %}
+    {% if not noti.is_read %}
+        <div>
+            <span>{{ noti.created_at }}</span>
+            <span>{{ noti.notification_name }}</span>
+            <span>{{ noti.notification_content }}</span>
+            <span>{{ noti.notification_type }}</span>
+            <span><a href="{{ noti.notification_link }}" onclick="set_read({{noti.notification_id}})"> 바로가기 </a></span>
+        </div>
+    {% endif %}
+{% endfor %}
 
-        {% for noti in notifications %}
-        <tr>
-            <td>{{ noti.notification_name }}</td>
-            <td>{{ noti.notification_content }}</td>
-            <td>{{ noti.notification_type }}</td>
-            <td><a href="{{ noti.notification_link }}"> 바로가기 </a></td>
-        </tr>
 
-        {% endfor %}
-    </tbody>
-</table>
+<h3> 확인 한 알림 </h3>
+{% for noti in notifications %}
+    {% if noti.is_read %}
+        <div>
+            <span>{{ noti.created_at }}</span>
+            <span>{{ noti.notification_name }}</span>
+            <span>{{ noti.notification_content }}</span>
+            <span>{{ noti.notification_type }}</span>
+            <span><a href="{{ noti.notification_link }}" onclick="set_read({{noti.notification_id}})"> 바로가기 </a></span>
+        </div>
+    {% endif %}
+{% endfor %}
+
+
+
+<script>
+
+    function set_read(id){
+        const url = `/notification/${id}/read/`;
+        fetch(url)
+            .then( response => {
+                if(response.redirected){
+                    window.location.href = response.url
+                }
+                else{
+                    console.log(response.json())
+                }
+            })
+    }
+
+    
+</script>
 {% endblock %}

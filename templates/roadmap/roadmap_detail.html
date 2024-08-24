@@ -44,7 +44,6 @@
                 {% include 'components/progress/progressbar.html' with criteria=roadmap.registration_agrees.criteria total=roadmap.registration_agrees.total percentage=roadmap.registration_agrees.percentage%}
 
                 {% if roadmap.status == "Pending" or roadmap.status == "In Progress" %}
-                
                     <button class="agree_btn" onclick="onAgreeClicked({{roadmap.roadmap_id}}, 'registration')">
                         투표
                     </button>
@@ -98,7 +97,7 @@
         </div>
     </section>
     <section class="roadmap__comment">
-        {% include 'components/comment/comment.html' with comments=comments %}
+        {% include 'components/comment/comment.html' with comments=comments type="roadmap" id=roadmap.roadmap_id %}
     </section>
 </div>
 

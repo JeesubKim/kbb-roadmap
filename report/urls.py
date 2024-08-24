@@ -8,6 +8,7 @@ app_name = 'report'
 urlpatterns = [
     
     path('', views.main, name="main"),
+    path('detail/<str:id>/', views.detail, name="detail"),
     path('create/', views.new_report, name="create"),
     
 ]

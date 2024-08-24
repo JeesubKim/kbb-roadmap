@@ -16,6 +16,13 @@ class Report(TimestamedModel):
     reporter = models.ForeignKey(get_user_model(), null=False, on_delete=models.CASCADE, related_name="user")
 
 
-class ReportStatus(TimestamedModel):
-    report_id = models.ForeignKey(Report, null=False, on_delete=models.CASCADE)
-    report_status = models.CharField(blank=False, max_length=20)
+# class ReportComment(TimestamedModel):
+#     author = models.ForeignKey(get_user_model(), null=False, on_delete=models.CASCADE)
+#     report = models.ForeignKey(Report, null=False, on_delete=models.CASCADE)
+#     comment = models.TextField(blank=True)
+    
+
+
+# class ReportCommentLikes(TimestamedModel):
+#     user = models.ForeignKey(get_user_model(), null=False, on_delete=models.CASCADE)
+#     comment = models.ForeignKey(ReportComment, null=False, on_delete=models.CASCADE)

@@ -7,7 +7,7 @@
         <p class="comment">Comment: {{comment_item.comment.comment}}</p>
         <span class="comment_updated">Created: {{comment_item.comment.created_at}}</span>
 
-        <button class="comment_liked"  onclick="onLikeClicked({{comment_item.comment.id}})">
+        <button class="comment_liked"  onclick="onLikeClicked('{{type}}', {{comment_item.comment.id}})">
             Liked: {% for like in comment_item.likes %}
                 <img src="{{like.picture}}" />
                 <small> {{ like.username }}</small>
@@ -20,15 +20,17 @@
 {% endfor %}
 
 <div class="comment__input">
-    {% include "components/form/roadmap/roadmap_comment.html" %}
+    {% include "components/form/comment/comment.html" with type=type id=id %}
     
 </div>
 
 
 <script>
 
-    function onLikeClicked(comment_id){
-        const url = `/roadmap/detail/comment/likes/${comment_id}/`;
+    function onLikeClicked(type, comment_id){
+        console.log(type, comment_id)
+        // const url = `/roadmap/detail/comment/likes/${comment_id}/`;
+        const url = `/comments/likes/${type}/${comment_id}/`;
         fetch(url, {
             method: "POST",
             headers: {

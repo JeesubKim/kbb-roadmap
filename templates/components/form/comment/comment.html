@@ -1,0 +1,13 @@
+<form class="form form-{{class}}" action="{% url 'comments:main' %}" method="post">
+    {% csrf_token %}
+
+    {% for field in form %}
+        <div class="field__wrapper">
+            {{ field.errors }}
+            {{ field.label_tag }} {{ field }}
+        </div>
+    {% endfor %}
+    <input type="hidden" name="type" value="{{type}}" />
+    <input type="hidden" name="id" value="{{id}}" />
+    <button type="submit"> 등록 </button>
+</form>
