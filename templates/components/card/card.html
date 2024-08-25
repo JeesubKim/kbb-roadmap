@@ -1,4 +1,33 @@
 
+{% block style %}
+<style>
+    .card{
+        /* border:1px solid red; */
+        box-shadow: 1px 1px 6px 0 rgb(97, 97, 97);
+        padding:1rem;
+        border-radius: 8px;
+    }
+    .card img{
+        width:100%;
+        border-radius: 4px;
+
+    }
+    .card h1 {
+        padding:0.15rem 0.5rem;
+        background-color: rgb(6, 124, 1);
+        border-radius: 4px;
+        text-align: center;
+        color:white;
+        
+    }
+    .card p{
+        margin-top:1rem;
+        margin-bottom:1rem;
+    }
+</style>
+{% endblock %}
+
+
 <div class="card">
     <h1 class="card__title">{{ title }}</h1>
     <p class="card__content">{{ content }}</p>

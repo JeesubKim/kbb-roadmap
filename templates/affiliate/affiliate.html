@@ -4,11 +4,24 @@
 (주) 곡반 보더스 / KBB - 계열사
 {% endblock %}
 
+{% block style %}
+<style>
+    .container{
+        /* width:100%; */
+        display: grid;
+        grid-template-columns: 100%;
+        gap:5rem;
+        padding-left:1rem;
+        padding-right:1rem;
+    }
+</style>
+{% endblock %}
 {% block content %}
-
-{% for card in cards %}
-    {% include "components/card/card.html" with title=card.title content=card.content imgs=card.img %}
-{% endfor %}
+<div class="container">
+    {% for card in cards %}
+        {% include "components/card/card.html" with title=card.title content=card.content imgs=card.img %}
+    {% endfor %}
+</div>
 
 
 {% endblock%}
