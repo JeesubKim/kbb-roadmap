@@ -1,28 +1,68 @@
+{% extends 'base.html' %}
 {% load allauth %}
 {% load socialaccount %}
+
+
+{% block style %}
+<style>
+    .user_section{
+        height:60vh;
+        padding:1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap:1rem;
+    }
+
+    .user_section img{
+        border-radius: 50%;
+    }
+    .user_section a {
+        font-size: 1.25rem;
+        text-decoration: none;
+    }
+
+    .user_section a.google_login{
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        gap:1rem;
+        padding: 0.5rem 2rem;
+        border-radius: 64px;
+        background-color: rgba(128,128,128,0.2);
+    }
+    .user_section a.google_login img{
+        width:60px;
+    }
+</style>
+{% endblock %}
+{% block title %}
+(주) 곡반 보더스 / KBB - 계정
+{% endblock %}
+
+
 {% block content %}
 
-Profile
+<section class="user_section"> 
+    {% if user.is_authenticated %}        
+        <p>사용자 정보</p>
+
+        <img src="{{picture}}" />
+        <small>아이디: {{user.username}}</small>
+        <small>이름: {{user.get_full_name}}</small>
+        <small>이메일: {{user.email}}</small>
+        <small>최근 접속시간: {{user.last_login}}</small>
+            
+        <a href="{% url 'user:logout' %}"> 로그아웃 </a>
+    {% else %}
+        <a class="google_login" href="{% provider_login_url 'google' %}">  
+            <img src="/media/internal/web_neutral_rd_na@4x.png" /> 구글 계정으로 계속 하기 
+        </a>
+    {% endif %}
+
+</section>
+
+{% endblock%}
 
 
-
-    <button type="button"> 
-        {% if user.is_authenticated %}        
-            <p>Your profile</p>
-
-            <img src="{{picture}}" />
-            <small>{{user.username}}</small>
-            <small>{{user.get_full_name}}</small>
-            <small>{{user.email}}</small>
-            <small>{{user.last_login}}</small>
-                
-            <a href="{% url 'user:logout' %}"> 로그아웃 </a>
-        {% else %}
-            <a href="{% provider_login_url 'google' %}">  로그인 </a>
-        {% endif %}
-    
-    </button>
-
-
-<!-- <small>{{user.get_lastname}}</small> -->
-{% endblock content %}
