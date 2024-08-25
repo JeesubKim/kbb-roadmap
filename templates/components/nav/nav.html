@@ -3,6 +3,8 @@
     /* .kbb-roaddmap__nav{
         display:flex;
         justify-content: space-between;
+        height:64px;
+        background-color: blue;
     }
     .kbb-roaddmap__nav .left,
     .kbb-roaddmap__nav .right{
@@ -14,11 +16,156 @@
         display:flex;
         list-style: none;
     } */
-
-    .kbb-roaddmap__nav{
+     .kbb-roadmap__nav{
         display:grid;
-        grid-template-columns: ;
+        grid-template-columns: 150px 1fr auto;
+        height:64px;
+        position:relative;
+        
+     }
+
+     
+
+     .kbb-roadmap__nav .kbb-roadmap__title,
+     .kbb-roadmap__nav .specific__list,
+     .kbb-roadmap__nav .nav__list{
+        display:flex;
+        align-items: center;
+     }
+     .kbb-roadmap__nav .specific__list,
+     .kbb-roadmap__nav .nav__list{
+        list-style: none;
+     }
+     
+    .kbb-roadmap__nav .specific__list .nav__item{
+        background-color: rgb(255, 60, 0);
+        font-size:16px !important;
+        padding: 0.25rem 1rem;
+        border-radius: 4px;
+        color:white;
+        font-weight: 900;
     }
+     .kbb-roadmap__nav .nav__list{
+
+        position:fixed;
+        background-color: rgba(0, 0, 0, 0.9);
+        top:0;
+        right:-100vw;
+        height:100vh;
+        
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width:100%;
+        gap:1.5rem;
+        letter-spacing: 1rem;
+        /* align-items: center; */
+        
+        transition: right 0.2s ease-in;
+     }
+     body.active{
+        overflow: hidden;
+     }
+
+     .kbb-roadmap__nav .nav__list.active {
+        right:0;
+        transition: right 0.2s ease-out;
+        
+     }
+     .kbb-roadmap__nav .nav__list.active::before{
+        content:"필승";
+        height:64px;
+        top:0;
+        left:0;
+        position:fixed;
+        background-color: rgb(255, 0, 0);
+        width:100vw;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        font-size:32px;
+        color:yellow;
+
+     }
+
+     .kbb-roadmap__nav .ham_button{
+        
+        width:36px;
+        height:36px;
+        position: absolute;
+        background-color: rgb(3, 88, 0);
+        /* box-shadow: 0 4px 8px 0 rgb(0, 0, 0); */
+        top:12px;
+        right:12px;
+        border-radius: 2px;
+
+     }
+     .kbb-roadmap__nav .ham_button span{
+        position: absolute;
+        top: calc(50% - 4px);
+        left: 10%;
+        display: inline-block;
+        height:4px;
+        width: 80%;
+        background-color: yellow;
+        transition: 0.1s ease;
+     }
+
+    .kbb-roadmap__nav .ham_button span:nth-child(1){
+        transform: translateY(-10px);
+        
+    }
+    .kbb-roadmap__nav .ham_button span:nth-child(2){
+        transform: translateY(-2px);
+    }
+    .kbb-roadmap__nav .ham_button span:nth-child(3){
+        /* display: none; */
+        transform: translateY(6px);
+    }
+    .kbb-roadmap__nav .ham_button span:nth-child(4){
+        transform: translateY(14px);
+        /* display: none; */
+    }
+    .kbb-roadmap__nav .ham_button.active span:nth-child(1){
+        transform: rotate(45deg);          
+    }
+    .kbb-roadmap__nav .ham_button.active span:nth-child(2){
+        display:none;
+    }
+    .kbb-roadmap__nav .ham_button.active span:nth-child(3){
+        display:none;
+    }
+    .kbb-roadmap__nav .ham_button.active span:nth-child(4){
+        transform: rotate(-45deg);
+    }
+    .kbb-roadmap__nav .nav__list .nav__item{
+        width:100%;
+        text-align: center;
+    }
+    .kbb-roadmap__nav a{
+        text-decoration: none;
+        color:white;
+    }
+
+    .kbb-roadmap__nav .nav__list .nav__item a{
+        font-size:32px;
+        
+    }
+
+    .kbb-roadmap__nav .kbb-roadmap__title{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .kbb-roadmap__nav .kbb-roadmap__title a{
+        
+        background-color: red;
+        padding:0.5rem 1rem;
+        border-radius: 4px;
+    }
+
+
 </style>
 
 {% endblock %}
@@ -26,32 +173,43 @@
 
 {% block nav%}
 
-<nav class="kbb-roaddmap__nav">
-    <div class="left">
-        <span class="kbb-roadmap__title">
-
-            <a href="{% url 'landing:main' %}">(주) 곡반 보더스</a>
-        </span>
-
-        <ul class="nav__list">
-            <li class="nav__item" name="history"> <a href="{% url 'history:main' %}">연혁</a></li>
-            <li class="nav__item" name="affiliate"> <a href="{% url 'affiliate:main' %}">계열사</a> </li>
-            <li class="nav__item" name="org"> <a href="{% url 'org:main' %}">조직도</a> </li>
-            <li class="nav__item" name="roadmap"> <a href="{% url 'roadmap:main' %}">로드맵</a> </li>
-            <li class="nav__item" name="event"> <a href="{% url 'event:main' %}">행사</a></li>
-        </ul>
-    </div>
-    <div class="right">
+<nav class="kbb-roadmap__nav">
+    <span class="kbb-roadmap__title">
+        <a href="{% url 'landing:main' %}">(주) 곡반 보더스</a>
+    </span>
+    <ul class="specific__list">
         {% block nav-items %}
         {% endblock %}
-        <ul class="nav__list">
-            <li class="nav__item" name="report"> <a href="{% url 'report:main' %}">제보</a> </li>
-            <li class="nav__item" name="support"> <a href="{% url 'donation:main' %}">후원하기</a> </li>
-            <li class="nav__item" name="support"> <a href="{% url 'notification:main' %}">알림</a> </li>
-            <li class="nav__item" name="account"> <a href="{% url 'user:main' %}">계정</a> </li>
-        </ul>
+    </ul>
+    <ul class="nav__list" id="app_navbar">
+        <li class="nav__item" name="history"> <a href="{% url 'history:main' %}">연혁</a></li>
+        <li class="nav__item" name="affiliate"> <a href="{% url 'affiliate:main' %}">계열사</a> </li>
+        <li class="nav__item" name="org"> <a href="{% url 'org:main' %}">조직도</a> </li>
+        <li class="nav__item" name="roadmap"> <a href="{% url 'roadmap:main' %}">로드맵</a> </li>
+        <li class="nav__item" name="event"> <a href="{% url 'event:main' %}">행사</a></li>
+        
+        <li class="nav__item" name="report"> <a href="{% url 'report:main' %}">제보</a> </li>
+        <li class="nav__item" name="support"> <a href="{% url 'donation:main' %}">후원하기</a> </li>
+        <li class="nav__item" name="support"> <a href="{% url 'notification:main' %}">알림</a> </li>
+        <li class="nav__item" name="account"> <a href="{% url 'user:main' %}">계정</a> </li>
+    </ul>
+    <div class="ham_button" id="ham_button">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
     </div>
+    
 </nav>
 
+<script>
+    const ham_btn = document.getElementById("ham_button");
+    const navbar = document.getElementById("app_navbar");
+    ham_btn.addEventListener("click", ()=>{
+        ham_btn.classList.toggle("active");
+        navbar.classList.toggle("active");
+        document.body.classList.toggle("active");
+    })
+</script>
 {% endblock %}
 

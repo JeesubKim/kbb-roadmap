@@ -4,14 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
     <title>{% block title %}{% endblock %}</title>
     <style>
         *{
             padding:0;margin:0;box-sizing: border-box;
+            font-family: "Do Hyeon", sans-serif;
+            font-weight: 400;
+            font-style: normal;
         }
         body{
-            width: 100%;
+            width: 100vw;
+            overflow-x: hidden;
+            
+        }
+        main{
+            max-width: 1024px;
+            margin:0 auto;
         }
     </style>
     {% block style %}

@@ -4,21 +4,75 @@
 (주) 곡반 보더스 / KBB
 {% endblock %}
 
+{% block style %}
+<style>
+    .container{
+        padding:1rem;
+        margin:0 auto;
+    }
+    .intro__picture{
+        width:100%;
+        /* max-width: 1200px; */
+        
+        border-radius: 0.35rem;
+        
+    }
+    .intro__content{
+        padding:1rem;
+    }
+    .intro__content p{
+        margin-bottom: 0.5rem;
+    }
+    .intro__content p:nth-child(1),
+    .intro__content p:nth-child(2){
+        text-align: center;
+    }
+    .highlight {
+        display: inline-block;
+        text-align: center;
+        border-radius: 4px;
+        /* font-weight: 900; */
+        padding:0.25rem 0.25rem;
+    }
+    .highlight.highlight__red{
+        background-color: rgb(192, 26, 26);
+        color:yellow;
+    }
+    .highlight.highlight__bold{
+        /* background-color: red; */
+        /* font-weight: 900; */
+        text-decoration: underline;
+        color:black;
 
+    }
+    .intro__learnmore{
+        display: inline-block;
+        text-decoration: none;
+        background-image: linear-gradient(to bottom, #5cb85c 0, #419641 100%);
+        border-radius: 4px;
+        padding:0.5rem 1rem;
+        color:white;
+        
+
+    }
+</style>
+{% endblock %}
 
 {% block content %}
 
 <section class="container">
-    <h1 class="container__title"> (주) 곡반보더스 / KBB </h1>
+    <h1 class="container__title"> (주) 곡반보더스 / KBB 의 모든 것 </h1>
     <div class="introduction">
         <img class="intro__picture" src="media/internal/kbb.jpg"/>
         <div class="intro__content">
             <p>
-                곡반 / 인계 <span class="highlight highlight__red"> 핵불주먹 </span>으로 단합 된 주식회사 <span
-                    class="highlight highlight__bold">곡반 보더스(이하 KBB)</span>에 오신것을 환영 합니다
+                곡반 / 인계 <span class="highlight highlight__red"> 핵불주먹 </span>으로 단합 된 주식회사
             </p>
             <p>
-                인생은 짧지만 더 짧아지고 싶다면 <span class="highlight highlight__red"> 핵불주먹 </span>의 심기를 한번 거슬러 보십시오
+                <span class="highlight highlight__bold">곡반 보더스(이하 KBB)</span>에 오신것을 환영 합니다
+            </p>
+            <p>
+                인생은 짧지만 더 짧아지고 싶다면 불주먹 의 심기를 한번 거슬러 보십시오
             </p>
             <p>
                 KBB에 대해 더 자세히 알고싶고 인생 그리고 삶 또한 짧아지고 싶다면 아래 버튼을 누르시기 바랍니다
