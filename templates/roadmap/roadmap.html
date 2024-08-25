@@ -4,6 +4,59 @@
 (주) 곡반 보더스 / KBB - 로드맵
 {% endblock %}
 
+{% block style %}
+<style>
+
+    .roadmaps{
+        width: 100%;
+        margin-top: 2rem;
+        margin-left:1rem;
+        margin-right:1rem;
+    }
+    .roadmaps .roadmaps__th,
+    .roadmaps .roadmaps__roadmap__item{
+        text-align: center;
+        padding-top:1rem;
+        padding-bottom:1rem;
+        
+    }
+    
+    .roadmaps .roadmaps__th{
+        
+        background-color: blanchedalmond;
+    }
+    .roadmaps .roadmaps__th:first-child{
+        width: 150px;
+    }   
+
+    .roadmaps .roadmaps__roadmap__item{
+        border-bottom:1px solid rgba(128,128,128,0.2);
+    }
+
+    .roadmaps tbody .roadmaps__roadmap:hover{
+        opacity: 0.5;
+    }
+    .status_badge.status {
+        border-radius: 2rem;
+        padding:0.15rem 1rem;
+        color:white;
+    }
+    .status_badge.status.Done {
+        background-color: green;
+    }
+    .status_badge.status.Pending {
+        background-color: grey;
+    }
+    .status_badge.status.In.Progress {
+        background-color: rgb(0, 56, 211);
+    }
+    .status_badge.status.In.Review {
+        background-color: rgb(144, 0, 211);
+    }
+    
+</style>
+
+{% endblock %}
 
 {% block nav%}
 {% include "components/nav/roadmap/roadmap_nav.html" %}
@@ -29,7 +82,7 @@
         
             <tr class="roadmaps__roadmap" onclick="window.location.href='detail/{{roadmap.id}}/'">
                 <td class="roadmaps__roadmap__item">{{roadmap.roadmap_name}}</td>
-                <td class="roadmaps__roadmap__item">{{roadmap.status}}</td>
+                <td class="roadmaps__roadmap__item"><span class="status_badge status {{roadmap.status}}">{{roadmap.status}}</span></td>
                 <td class="roadmaps__roadmap__item">{{roadmap.assignee}}</td>
                 <td class="roadmaps__roadmap__item">{{roadmap.requester}}</td>
                 <td class="roadmaps__roadmap__item">{{roadmap.created_at}}</td>

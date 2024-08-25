@@ -12,15 +12,14 @@ from notification.views import create_notification
 # Create your views here.
 
 from comments.models import RoadmapComment, CommentLikes
-
+import datetime
 def main(request):
     if not is_authenticated(request):
         return HttpResponseRedirect('/user/')
 
     if request.method == "GET":
         
-        roadmaps = models.Roadmap.objects.all().order_by("status", "-created_at")
-        
+        roadmaps = list(models.Roadmap.objects.all().order_by("status", "-created_at"))
         context = {
             "roadmaps" : roadmaps
         } 
