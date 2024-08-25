@@ -4,15 +4,38 @@
 (주) 곡반 보더스 / KBB - 후원
 {% endblock %}
 
+
+{% block style %}
+<style>
+    .donation{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap:1rem;
+        padding:1rem;
+    }
+    .donation img{
+        width:100%;
+    }
+    .donation .label{
+        font-weight: 900;
+        font-size:2rem;
+        font-style: italic;
+        text-decoration: underline;
+    }
+    .donation a {
+        font-size: 2rem;
+    }
+</style>
+{% endblock %}
 {% block content %}
 
 <section class="donation">
-    <label class="">Buymeacoffee</label>
-    <img src="" alt="qr_code" />
+    <label class="label">Buy Me A Coffee</label>
+    <img src="/media/internal/bmc_qr.png" alt="qr_code" />
+    <a href="https://buymeacoffee.com/jeesub.kim"> Go to the page </a>
 </section>
-<section class="donation">
-    <label class="">새마을금고</label>
-    <img src="" alt="qr_code" />
-</section>
+
 
 {% endblock%}

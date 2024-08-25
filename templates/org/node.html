@@ -1,3 +1,48 @@
+{% block style %}
+<style>
+    .org__node{
+        /* height:400px; */
+        /* padding-left:5rem; */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 300px;
+        margin:0 auto;
+        margin-top:5rem;
+        margin-bottom:5rem;
+    }
+    .org__node .org__node__title{
+        padding-top:0.5rem;
+        padding-bottom: 0.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap:1rem;
+        font-size:1em;
+    }
+    .org__node .org__node__title span{
+        display:inline-block;
+        text-align: center;
+        
+    }
+    .org__node .org__node__title span.org__node__position{
+        
+        padding: 0.25rem 1rem;
+        background-color: rgb(255, 0, 0);
+        color:yellow;
+        border-radius: 2rem;
+    }
+    .org__node img, .org__node__description{
+        width:100%;
+        max-width:200px;
+        border-radius: 4px;
+    }
+</style>
+{% endblock %}
+
+
 {% for node in nodes %}
 
     <div class="org__node">

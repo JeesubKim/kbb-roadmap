@@ -4,9 +4,16 @@
 (주) 곡반 보더스 / KBB - 조직도
 {% endblock %}
 
-
+{% block style %}
+<style>
+    .container{
+        
+    }
+</style>
+{% endblock %}
 
 {% block content %}
-
-{% include "org/node.html" with nodes=nodes %}
+<div class="container">
+    {% include "org/node.html" with nodes=nodes %}
+</div>
 {% endblock %}
