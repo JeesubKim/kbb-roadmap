@@ -1,3 +1,16 @@
+{% block style %}
+<style>
+    .form.form-{{class}}{
+        margin-top:1rem;
+        margin-bottom:3rem;
+    }
+    .comment_submit_btn{
+        width:100%;
+        height: 34px;
+    }
+</style>
+{% endblock %}
+
 <form class="form form-{{class}}" action="{% url 'comments:main' %}" method="post">
     {% csrf_token %}
 
@@ -9,5 +22,5 @@
     {% endfor %}
     <input type="hidden" name="type" value="{{type}}" />
     <input type="hidden" name="id" value="{{id}}" />
-    <button type="submit"> 등록 </button>
+    <button class="comment_submit_btn" type="submit"> 등록 </button>
 </form>

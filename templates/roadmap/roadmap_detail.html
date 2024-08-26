@@ -5,6 +5,113 @@
 {% endblock %}
 
 
+{% block style %}
+<style>
+    .roadmap__container{
+        /* padding:1rem; */
+        padding:1rem;
+    }
+
+
+    .roadmap__container .roadmap__content{
+        box-shadow: 0 2px 2px 1px black;
+        padding:1rem;
+    }
+    .roadmap__container .roadmap__titlebar{
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        gap:1.5rem;
+    }
+    .roadmap__container .roadmap__titlebar .roadmap__status{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        font-size: 0.7rem;;
+    }
+    .status_badge.status {
+        border-radius: 2rem;
+        padding:0.15rem 1rem;
+        color:white;
+        margin-left:1rem;
+    }
+    .status_badge.status.Done {
+        background-color: green;
+    }
+    .status_badge.status.Pending {
+        background-color: grey;
+    }
+    .status_badge.status.In.Progress {
+        background-color: rgb(0, 56, 211);
+    }
+    .status_badge.status.In.Review {
+        background-color: rgb(144, 0, 211);
+    }
+    .roadmap__status_description{
+        grid-column: 1 / 3;
+        text-align: center;
+        margin-top:1rem;
+        margin-bottom:1rem;
+    }
+    .roadmap__container .roadmap__registration_agreement,
+    .roadmap__container .roadmap__completion_agreement{
+        grid-column: 1 / 3;
+    }
+    .roadmap__container .roadmap__completion_agreement{
+        margin-top:1rem;
+    }
+    .agree_btn {
+        width:100%;
+        height: 45px;
+        margin-top:0.5rem;
+        margin-bottom:0.5rem;
+        
+    }
+    .roadmap__container .roadmap__detail { 
+        margin-top:1rem;
+        margin-bottom:1rem;
+        display:grid;
+        grid-template-columns: 1fr 1fr;
+        gap:0.2rem;
+    }
+    .roadmap__container .roadmap__titlebar .roadmap__detail__created_at{
+        grid-column: 1 / 3;
+        text-align: right;
+        text-decoration: underline;
+    }
+    .roadmap__container .roadmap__detail .roadmap__detail__assignee,
+    .roadmap__container .roadmap__detail .roadmap__detail__requester{
+        display:flex;
+        
+        align-items: center;
+        gap: 0.5rem;
+    }
+    .roadmap__container .roadmap__detail .roadmap__detail__assignee{
+        justify-content: flex-start;
+    }
+    .roadmap__container .roadmap__detail .roadmap__detail__requester{
+        justify-content: flex-end;
+    }
+
+    .roadmap__registration_userlist,
+    .roadmap__completion_userlist{
+        display: flex;
+        justify-content: flex-end;
+
+    }
+    .roadmap__container .roadmap__content .user_info {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap:0.25rem;
+    }
+    .roadmap__container .roadmap__content .user_info img {
+        border-radius: 50%;
+        width:24px;
+        height:24px;
+    }
+</style>
+{% endblock %}
+
 {% block nav%}
 {% include "components/nav/roadmap/roadmap_goback_nav.html" %}
 {% endblock %}
@@ -15,86 +122,96 @@
 <div class="roadmap__container">
     <section class="roadmap__content">
         <div class="roadmap__titlebar">
-            <h1 class="roadmap__title">로드맵 꺼리: {{roadmap.roadmap_name}}</h1>
-            <span class="roadmap__status">상태: {{roadmap.status}}</span>
+            <h1 class="roadmap__title">{{roadmap.roadmap_name}}</h1>
+            <div class="roadmap__status">상태 <span class="status_badge status {{roadmap.status}}">{{roadmap.status}}</span></div>
+            <small class="roadmap__detail__created_at">
+                {{roadmap.created_at}} 에 요청
+            </small>
+        </div>
+        <div class="roadmap__detail">
+            <small class="roadmap__detail__assignee">
+                할당 to
+                <span class="user_info">
+                    <img src={{roadmap.assignee.picture}} />
+                    <small>{{roadmap.assignee.name}}</small>
+                </span>
+            </small>
+            <small class="roadmap__detail__requester">
+                요청 by
+                <span class="user_info">
+
+                    <img src={{roadmap.requester.picture}} />
+                    <small>{{roadmap.requester.name}}</small>
+                </span>
+            </small>
             <small class="roadmap__status_description"> 
+                
                 {% if roadmap.status == "Pending" %}
-                    과반 동의 시 In Progress로 변경
+                    다음 단계로 넘어가려면? : 과반 동의 시 In Progress로 변경
                 {% elif roadmap.status == "In Progress" %}
-                    과반 동의 시 In Review 로 변경
+                    다음 단계로 넘어가려면? : 과반 동의 시 In Review 로 변경
 
                 {% elif roadmap.status == "In Review" %}
-                    과반 동의 시 Done 으로 변경
+                    다음 단계로 넘어가려면? : 과반 동의 시 Done 으로 변경
                 {% else %}
-                    종료
+                    로드맵 종료 됨
                 {% endif %}
             </small>
             
-            <div class="roadmap__registration_agreement">
-                <h3> 로드맵 등록 동의 명단 </h3>
-                <ul class="roadmap__registration_userlist">
-                    {% for user in roadmap.registration_agrees.list %}
-                        <img src={{user.picture}} />
-                        <small>{{user.name}}</small>
-                    {% endfor %}
-
-                </ul>
-                
-                
-                {% include 'components/progress/progressbar.html' with criteria=roadmap.registration_agrees.criteria total=roadmap.registration_agrees.total percentage=roadmap.registration_agrees.percentage%}
-
-                {% if roadmap.status == "Pending" or roadmap.status == "In Progress" %}
-                    <button class="agree_btn" onclick="onAgreeClicked({{roadmap.roadmap_id}}, 'registration')">
-                        투표
-                    </button>
-                {% endif %}
-            </div>
-            {% if roadmap.status == "In Progress" %}
-                <button class="agree_btn" onclick="onCompleteClicked({{roadmap.roadmap_id}})">
-                    종료 요청
-                </button>
             
-            {% elif roadmap.status == "In Review" or roadmap.status == "Done" %}
-            <div class="roadmap__completion_agreement">
-                <h3> 종료 동의 명단 </h3>
-                <ul class="roadmap__completion_userlist">
-                    {% for user in roadmap.completion_agrees.list %}
-                        <img src={{user.picture}} />
-                        <small>{{user.name}}</small>
-                    {% endfor %}
-                </ul>
+        </div>
 
-                {% include 'components/progress/progressbar.html' with criteria=roadmap.completion_agrees.criteria total=roadmap.completion_agrees.total percentage=roadmap.completion_agrees.percentage%}
-                
-                {% if roadmap.status != "Done" %}
-                <button class="agree_btn" onclick="onAgreeClicked({{roadmap.roadmap_id}}, 'completion')">
+        <div class="roadmap__registration_agreement">
+            <h3> 로드맵 등록 동의 현황 </h3>
+            <ul class="roadmap__registration_userlist">
+                {% for user in roadmap.registration_agrees.list %}
+                <span class="user_info">
+
+                    <img src={{user.picture}} />
+                    <small>{{user.name}}</small>
+                </span>
+                {% endfor %}
+
+            </ul>
+            
+            {% include 'components/progress/progressbar.html' with criteria=roadmap.registration_agrees.criteria total=roadmap.registration_agrees.total percentage=roadmap.registration_agrees.percentage%}
+
+            {% if roadmap.status == "Pending" or roadmap.status == "In Progress" %}
+                <button class="agree_btn" onclick="onAgreeClicked({{roadmap.roadmap_id}}, 'registration')">
                     투표
                 </button>
-                {% endif %}
-            </div>
-            
             {% endif %}
         </div>
-        <div class="roadmap__detail">
-            <td class="roadmap__detail__assignee">
-                Assigned to 
-                <img src={{roadmap.assignee.picture}} />
-                <small>{{roadmap.assignee.name}}</small>
-            </td>
-            <td class="roadmap__detail__requester">
-                Requested by
-                <img src={{roadmap.requester.picture}} />
-                <small>{{roadmap.requester.name}}</small>
-            </td>
-            <td class="roadmap__detail__created_at">
-                Requested at
-                {{roadmap.created_at}}
-            </td>
-            <td class="roadmap__detail__updated_at">
-                Updated at
-                {{roadmap.updated_at}}
-            </td>
+        
+        {% if roadmap.status == "In Progress" and user.username == roadmap.assignee.name %}
+            <button class="agree_btn" onclick="onCompleteClicked({{roadmap.roadmap_id}})">
+                종료 요청
+            </button>
+        
+        {% elif roadmap.status == "In Review" or roadmap.status == "Done" %}
+
+        
+        <div class="roadmap__completion_agreement">
+            <h3> 로드맵 종료 동의 명단 </h3>
+            <ul class="roadmap__completion_userlist">
+                {% for user in roadmap.completion_agrees.list %}
+                    <span class="user_info">
+                        <img src={{user.picture}} />
+                        <small>{{user.name}}</small>
+                    </span>
+                {% endfor %}
+            </ul>
+
+            {% include 'components/progress/progressbar.html' with criteria=roadmap.completion_agrees.criteria total=roadmap.completion_agrees.total percentage=roadmap.completion_agrees.percentage%}
+            
+            {% if roadmap.status != "Done" %}
+            <button class="agree_btn" onclick="onAgreeClicked({{roadmap.roadmap_id}}, 'completion')">
+                투표
+            </button>
+            {% endif %}
         </div>
+        
+        {% endif %}
     </section>
     <section class="roadmap__comment">
         {% include 'components/comment/comment.html' with comments=comments type="roadmap" id=roadmap.roadmap_id %}

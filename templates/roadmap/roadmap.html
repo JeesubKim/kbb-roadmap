@@ -10,8 +10,9 @@
     .roadmaps{
         width: 100%;
         margin-top: 2rem;
-        margin-left:1rem;
-        margin-right:1rem;
+        /* margin-left:1rem;
+        margin-right:1rem; */
+        font-size:0.8rem;
     }
     .roadmaps .roadmaps__th,
     .roadmaps .roadmaps__roadmap__item{
@@ -25,10 +26,10 @@
         
         background-color: blanchedalmond;
     }
-    .roadmaps .roadmaps__th:first-child{
-        width: 150px;
-    }   
-
+    
+    .roadmaps .roadmaps__th:nth-child(2){
+        /* width:95px; */
+    }
     .roadmaps .roadmaps__roadmap__item{
         border-bottom:1px solid rgba(128,128,128,0.2);
     }
@@ -37,9 +38,13 @@
         opacity: 0.5;
     }
     .status_badge.status {
+        display:inline-block;
         border-radius: 2rem;
         padding:0.15rem 1rem;
         color:white;
+        width:80px;
+        font-size: 0.5rem;
+        
     }
     .status_badge.status.Done {
         background-color: green;

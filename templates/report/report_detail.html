@@ -4,28 +4,44 @@
 (주) 곡반 보더스 / KBB - 리포트 상세
 {% endblock %}
 
+
+{% block style %}
+<style>
+    .container{
+        padding-left:1rem;
+        padding-right:1rem;
+    }
+</style>
+{% endblock %}
 {% block nav%}
 {% include "components/nav/report/report_create_nav.html" %}
 {% endblock %}
 
 {% block content %}
 
+<div class="container">
 
-<div class="report_detail_container">
+    <section class="report_detail_container">
+        
+        <h1 class="report_title">제목: {{report.report_subject}}</h1>
+        <div>
+            작성자: 
+            <img src="{{report.reporter.picture}}" />
+            <small> {{ report.reporter.name }}</small>
+        </div>
+        
+        <small> {{report.reporter.created_at}}</small>
+        <img src="{{report.report_image.url}}" alt="report image" class="report_image">
+        <p class="report_content">내용: {{report.report_content}}</p>        
+        
     
-    <h1 class="report_title">제목: {{report.report_subject}}</h1>
-    <div>
-        작성자: 
-        <img src="{{report.reporter.picture}}" />
-        <small> {{ report.reporter.name }}</small>
-    </div>
-    <p class="report_content">내용: {{report.report_content}}</p>
-    <small> {{report.reporter.created_at}}</small>
-    <img src="{{report.report_image.url}}" alt="report image" class="report_image">
-            
-    
+    </section>
 
+    <section class="report__comment">
+        {% include 'components/comment/comment.html' with comments=comments type="report" id=report.report_id %}
+    </section>
 </div>
 
-{% include 'components/comment/comment.html' with comments=comments type="report" id=report.report_id %}
+
+
 {% endblock %}

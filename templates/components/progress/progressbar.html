@@ -1,3 +1,30 @@
-<div class="progress_container" style="width:500px; background-color: grey;">
-    <span class="progress__progressbar" style="background-color: aqua; display:inline-block; width: {{percentage}}%;"> {{ total }}</span>
+{% block style %}
+<style>
+    .progress_container{
+        width:100%;
+        background-color: grey;
+        border-radius: 1rem;
+        position:relative;
+    }
+    .label{
+        position: absolute;
+        left:50%;
+    }
+    .progress__progressbar{
+        
+        display:inline-block;
+        /* min-width:5px; */
+        /* height:100%; */
+        width:100%;
+        border-radius: 1rem;
+        background-color: green;
+        text-align: center;
+        padding-left:1rem;
+    }
+</style>
+{% endblock %}
+
+<div class="progress_container">
+    <span class="progress__progressbar" style="width: {{percentage}}%;">{{ total }}</span>
+    
 </div>

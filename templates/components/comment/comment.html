@@ -1,23 +1,108 @@
+{% block style %}
+<style>
+    .comment_section{
+        margin-top:2rem;
+        display:grid;
+        grid-template-columns: 1fr;   
+        gap:1rem;
+    }
+    .comment__container{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    .comment__container .comment {
+        grid-column: 1 / 3;
+        min-height: 70px;
+        padding:1rem;
+    }
+    .comment__container span{
+        padding-top:0.25rem;
+        padding-bottom:0.25rem;
+        background-color: rgba(128,128,128,0.2);
+        font-size:0.9rem;
+        
+    }
+    .comment__container span:nth-child(1){
+        text-align: left;
+        padding-left:1rem;
+    }
+    .comment__container span:nth-child(2){
+        text-align: right;
+        padding-right:1rem;
+    }
+    .comment_liked{
 
-
-{% for comment_item in comments %}
+        grid-column: 1/3;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin-top:0.25rem;
+    }
+    .comment_liked_btn {
+        
+        width:25px;
+        height:25px;
+    }
+    .comment_liked_btn img{
+        width:100%;
+        color:red;
+    }
+    .like_list {
+        grid-column : 1 /3;
+        padding:0.25rem;
+    }
+    .like_list .user_info{
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        gap:0.25rem;
+    }
+    .like_list .user_info img {
+        border-radius: 50%;
+        width:24px;
+        height:24px;
+    }
     
-    <div class="comment__container">
-        <span class="comment_author">Author: {{comment_item.comment.author}}</span>
-        <p class="comment">Comment: {{comment_item.comment.comment}}</p>
-        <span class="comment_updated">Created: {{comment_item.comment.created_at}}</span>
 
-        <button class="comment_liked"  onclick="onLikeClicked('{{type}}', {{comment_item.comment.id}})">
-            Liked: {% for like in comment_item.likes %}
-                <img src="{{like.picture}}" />
-                <small> {{ like.username }}</small>
-            {% endfor %}
-        </button>
+    .comment__input{
+        width:100%;
+    }
+    .comment__input textarea{
+        width:100%;
+    }
+</style>
+{% endblock %}
 
 
-    </div>
-
-{% endfor %}
+<section class="comment_section">
+    {% for comment_item in comments %}
+        
+        <div class="comment__container">
+            <span class="comment_author">{{comment_item.comment.author}} 님</span>
+            <span class="comment_updated">{{comment_item.comment.created_at}}</span>
+            <div class="comment_liked">
+                <button class="comment_liked_btn"  onclick="onLikeClicked('{{type}}', {{comment_item.comment.id}})">
+                    <img src="/media/internal/like.svg" />
+                </button>
+                <div class="like_list">
+    
+                    {% for like in comment_item.likes %}
+                        <div class="user_info">
+                            <img src="{{like.picture}}" />
+                            <small> {{ like.username }}</small>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+    
+            <p class="comment">{{comment_item.comment.comment}}</p>
+    
+            
+           
+        </div>
+    
+    {% endfor %}
+</section>
 
 <div class="comment__input">
     {% include "components/form/comment/comment.html" with type=type id=id %}
