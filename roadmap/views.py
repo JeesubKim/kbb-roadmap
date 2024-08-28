@@ -10,7 +10,7 @@ from comments.forms import CommentForm
 from kbb_roadmap.views import is_authenticated
 from notification.views import create_notification
 # Create your views here.
-
+from comments.views import get_comment_list
 from comments.models import RoadmapComment, CommentLikes
 import datetime
 def main(request):
@@ -77,24 +77,7 @@ def detail(request, id):
         
         comments = RoadmapComment.objects.filter(roadmap=roadmap[0])
         
-        comments_list = []
-
-        for comment in comments:
-            # likes = list(models.RoadmapCommentLikes.objects.filter(comment=comment))
-            likes = list(CommentLikes.objects.filter(comment=comment.comment))
-            
-            liked_user_list = []
-            is_liked = False
-            for like in likes:
-
-                users = list(SocialAccount.objects.filter(user_id=like.user.pk))
-                if len(users) > 0:
-                    picture = users[0].extra_data.get ("picture")
-                    liked_user_list.append({"username":like.user.username, "picture":picture})
-                    if like.user.pk == request.user.id:
-                        is_liked=True
-
-            comments_list.append({"comment":comment.comment, "likes": liked_user_list, "is_liked":is_liked})
+        comments_list = get_comment_list(comments, request.user.id)
 
         context = {
             "roadmap": roadmap_data,
@@ -106,8 +89,8 @@ def detail(request, id):
     
 
 def new_roadmap(request):
-    if not is_authenticated(request):
-        return HttpResponseRedirect('/user/')
+    # if not is_authenticated(request):
+    #     return HttpResponseRedirect('/user/')
     
     if request.method == "GET":
 

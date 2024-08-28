@@ -7,11 +7,11 @@ from comments.forms import CommentForm
 from comments.models import ReportComment, CommentLikes
 # Create your views here.
 from kbb_roadmap.views import is_authenticated
-
+from comments.views import get_comment_list
 from . import models
 def main(request):
-    if not is_authenticated(request):
-        return HttpResponseRedirect('/user/')
+    # if not is_authenticated(request):
+    #     return HttpResponseRedirect('/user/')
 
     if request.method == "GET":
         reports = models.Report.objects.all()
@@ -22,8 +22,8 @@ def main(request):
     return render(request, 'report/report.html', context=context)
 
 def new_report(request):
-    if not is_authenticated(request):
-        return HttpResponseRedirect('/user/')
+    # if not is_authenticated(request):
+    #     return HttpResponseRedirect('/user/')
 
     if request.method == "GET":
         context = {
@@ -67,27 +67,13 @@ def detail(request, id):
             "report_content":report[0].report_content,
             "report_image":report[0].report_image,
             "reporter":reporter,
-            "created_at":report[0].created_at,
+            "created_at":report[0].created_at
         }
         
 
         comments = ReportComment.objects.filter(report=report[0])
         
-        comments_list = []
-
-        for comment in comments:
-            # likes = list(models.RoadmapCommentLikes.objects.filter(comment=comment))
-            likes = list(CommentLikes.objects.filter(comment=comment.comment))
-            
-            liked_user_list = []
-            for like in likes:
-
-                users = list(SocialAccount.objects.filter(user_id=like.user.pk))
-                if len(users) > 0:
-                    picture = users[0].extra_data.get ("picture")
-                    liked_user_list.append({"username":like.user.username, "picture":picture})
-
-            comments_list.append({"comment":comment.comment, "likes": liked_user_list})
+        comments_list = get_comment_list(comments, request.user.id)
 
         context = {
             "report": report_data,

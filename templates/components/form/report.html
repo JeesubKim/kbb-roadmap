@@ -1,3 +1,32 @@
+<style>
+    .form.form-{{class}}{
+        width:100%;
+        padding:1rem;
+
+    }
+    .field__wrapper{
+        width:100%;
+        display:flex;
+        align-items: center;
+        margin:1rem 0;   
+        gap:0.25rem;
+    }
+    .field__wrapper input{
+        flex:1;
+        height:35px;
+        padding-left:0.4rem;
+    }
+    .field__wrapper input#id_report_image{
+        height:100%;
+        /* height: 35px; */
+    }
+    #submit_btn{
+        width:100%;
+        height: 45px;
+        margin-top:2rem;
+    }
+</style>
+
 <form class="form form-{{class}}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
 
@@ -8,5 +37,5 @@
             {{ field.label_tag }} {{ field }}
         </div>
     {% endfor %}
-    <button type="submit"> 제보 </button>
+    <button type="submit" id="submit_btn"> 제보 </button>
 </form>

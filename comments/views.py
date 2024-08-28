@@ -117,3 +117,28 @@ def likes(request, type, id):
             item = likes.delete()
             
         return HttpResponseRedirect(url)
+    
+
+
+def get_comment_list(comments, user_id):
+    from allauth.socialaccount.models import SocialAccount
+    comments_list = []
+
+    for comment in comments:
+        # likes = list(models.RoadmapCommentLikes.objects.filter(comment=comment))
+        likes = list(models.CommentLikes.objects.filter(comment=comment.comment))
+        
+        liked_user_list = []
+        is_liked = False
+        for like in likes:
+
+            users = list(SocialAccount.objects.filter(user_id=like.user.pk))
+            if len(users) > 0:
+                picture = users[0].extra_data.get ("picture")
+                liked_user_list.append({"username":like.user.username, "picture":picture})
+                if like.user.pk == user_id:
+                    is_liked=True
+
+        comments_list.append({"comment":comment.comment, "likes": liked_user_list, "is_liked":is_liked})
+
+    return comments_list
