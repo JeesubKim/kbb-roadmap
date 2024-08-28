@@ -49,7 +49,7 @@
     }
     .like_list {
         grid-column : 1 /3;
-        padding:0.25rem;
+        padding:0 0.25rem;
     }
     .like_list .user_info{
         display:flex;
@@ -82,7 +82,13 @@
             <span class="comment_updated">{{comment_item.comment.created_at}}</span>
             <div class="comment_liked">
                 <button class="comment_liked_btn"  onclick="onLikeClicked('{{type}}', {{comment_item.comment.id}})">
-                    <img src="/media/internal/like.svg" />
+                    <img 
+                        {% if comment_item.is_liked %}
+                        src="/media/internal/liked.svg" 
+                        {% else %}
+                        src="/media/internal/like_btn.svg" 
+                        {% endif %}
+                    />
                 </button>
                 <div class="like_list">
     

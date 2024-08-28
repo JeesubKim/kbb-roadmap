@@ -14,8 +14,8 @@ from notification.views import create_notification
 from comments.models import RoadmapComment, CommentLikes
 import datetime
 def main(request):
-    if not is_authenticated(request):
-        return HttpResponseRedirect('/user/')
+    # if not is_authenticated(request):
+    #     return HttpResponseRedirect('/user/')
 
     if request.method == "GET":
         
@@ -27,8 +27,8 @@ def main(request):
         return render(request, 'roadmap/roadmap.html', context=context)
 
 def detail(request, id):
-    if not is_authenticated(request):
-        return HttpResponseRedirect('/user/')
+    # if not is_authenticated(request):
+    #     return HttpResponseRedirect('/user/')
     
     if request.method == "GET":
         from allauth.socialaccount.models import SocialAccount
@@ -84,14 +84,17 @@ def detail(request, id):
             likes = list(CommentLikes.objects.filter(comment=comment.comment))
             
             liked_user_list = []
+            is_liked = False
             for like in likes:
 
                 users = list(SocialAccount.objects.filter(user_id=like.user.pk))
                 if len(users) > 0:
                     picture = users[0].extra_data.get ("picture")
                     liked_user_list.append({"username":like.user.username, "picture":picture})
+                    if like.user.pk == request.user.id:
+                        is_liked=True
 
-            comments_list.append({"comment":comment.comment, "likes": liked_user_list})
+            comments_list.append({"comment":comment.comment, "likes": liked_user_list, "is_liked":is_liked})
 
         context = {
             "roadmap": roadmap_data,
