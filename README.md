@@ -124,6 +124,7 @@ INSTALLED_APPS = [
 3. `python manage.py migrate`
 4. Setup below
 5. Make sure SITE_ID is properly set (This is going to be stored in `db.sqlite3`)
+In the admin site, check site
 
 # Add Google in Social app in django admin
 
@@ -134,3 +135,34 @@ Add `localhost:8000` in Chosen sites
 
 ## Google Cloud
 https://console.cloud.google.com/apis/credentials
+
+
+
+## Deployment
+
+Change ALLOWED HOST
+
+
+
+ID 확인
+
+```
+python manage.py shell
+```
+```
+
+from django.contrib.sites.models import Site
+
+# 모든 사이트 가져오기
+sites = Site.objects.all()
+
+# 사이트 정보 출력
+for site in sites:
+    print(f"ID: {site.id}, Domain: {site.domain}")
+
+```
+
+
+duck dns
+
+`http://kbb-roadmap.duckdns.org/`

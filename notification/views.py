@@ -7,8 +7,8 @@ from kbb_roadmap.views import is_authenticated
 from .models import Notification, NotificationStatus
 
 def main(request):
-    # if not is_authenticated(request):
-    #     return HttpResponseRedirect('/user/')
+    if not is_authenticated(request):
+        return HttpResponseRedirect('/user/')
 
     
     notification_status = NotificationStatus.objects.filter(user_id=request.user.id).order_by("-created_at").order_by("is_read")

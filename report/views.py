@@ -10,8 +10,8 @@ from kbb_roadmap.views import is_authenticated
 from comments.views import get_comment_list
 from . import models
 def main(request):
-    # if not is_authenticated(request):
-    #     return HttpResponseRedirect('/user/')
+    if not is_authenticated(request):
+        return HttpResponseRedirect('/user/')
 
     if request.method == "GET":
         reports = models.Report.objects.all()
@@ -22,8 +22,8 @@ def main(request):
     return render(request, 'report/report.html', context=context)
 
 def new_report(request):
-    # if not is_authenticated(request):
-    #     return HttpResponseRedirect('/user/')
+    if not is_authenticated(request):
+        return HttpResponseRedirect('/user/')
 
     if request.method == "GET":
         context = {

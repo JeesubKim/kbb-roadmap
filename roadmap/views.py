@@ -14,8 +14,8 @@ from comments.views import get_comment_list
 from comments.models import RoadmapComment, CommentLikes
 import datetime
 def main(request):
-    # if not is_authenticated(request):
-    #     return HttpResponseRedirect('/user/')
+    if not is_authenticated(request):
+        return HttpResponseRedirect('/user/')
 
     if request.method == "GET":
         
@@ -27,8 +27,8 @@ def main(request):
         return render(request, 'roadmap/roadmap.html', context=context)
 
 def detail(request, id):
-    # if not is_authenticated(request):
-    #     return HttpResponseRedirect('/user/')
+    if not is_authenticated(request):
+        return HttpResponseRedirect('/user/')
     
     if request.method == "GET":
         from allauth.socialaccount.models import SocialAccount
@@ -89,8 +89,8 @@ def detail(request, id):
     
 
 def new_roadmap(request):
-    # if not is_authenticated(request):
-    #     return HttpResponseRedirect('/user/')
+    if not is_authenticated(request):
+        return HttpResponseRedirect('/user/')
     
     if request.method == "GET":
 
