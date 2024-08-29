@@ -26,6 +26,7 @@ SECRET_KEY = 'django-insecure-*dyk=r0igu@rrcj4f)qq7h*d+5s$2-c)t2@27y+a=(bb96ll#x
 DEBUG = True
 
 ALLOWED_HOSTS = ['0.0.0.0', 'website']
+#"192.18.137.35"
 
 
 SOCIALACCOUNT_LOGIN_ON_GET = True
