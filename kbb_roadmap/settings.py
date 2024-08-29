@@ -25,13 +25,14 @@ SECRET_KEY = 'django-insecure-*dyk=r0igu@rrcj4f)qq7h*d+5s$2-c)t2@27y+a=(bb96ll#x
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', 'website']
-#"192.18.137.35"
+ALLOWED_HOSTS = ['0.0.0.0', 'website','192.18.137.35','kbb-roadmap.duckdns.org']
+
 
 
 SOCIALACCOUNT_LOGIN_ON_GET = True
 # Application definition
 SITE_ID = 2
+#SITE_ID = 4
 INSTALLED_APPS = [
      # The following apps are required:
     'django.contrib.sites',
