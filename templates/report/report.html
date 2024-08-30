@@ -28,10 +28,19 @@
         border-bottom:1px dotted rgba(128,128,128, 0.2);
         width:100%;
     }
+    .report_card .img_container{
+        height:300px;
+        overflow: hidden;
+        border-radius: 8px;
+    }
     .report_card img{
         border-radius:4px;
         margin-bottom:1rem;
         width:100%;
+        
+    }
+    .report_card .report_content{
+        margin-top:1rem;
     }
 
 </style>
@@ -49,7 +58,10 @@
         
         <section class="report_card" onclick="window.location.href='detail/{{report.pk}}/'">
             <h1 class="report_title">제목: {{report.report_subject}}</h1>
-            <img src="{{report.report_image.url}}" alt="report image" class="report_image">
+            <div class="img_container">
+
+                <img src="{{report.report_image.url}}" alt="report image" class="report_image">
+            </div>
             <p class="report_content">{{report.report_content}}</p>
             
         </section>
