@@ -92,10 +92,13 @@ def new_roadmap(request):
     if not is_authenticated(request):
         return HttpResponseRedirect('/user/')
     
+    users = get_user_model().objects.filter(is_superuser=False)
+    users_list = list(users)
     if request.method == "GET":
 
         context = {
-            "form": RoadmapNameForm()
+            "form": RoadmapNameForm(),
+            "users":[{"id":user.pk,"name":user.username} for user in users_list]
         }
         return render(request, "roadmap/roadmap_create.html", context=context)
     

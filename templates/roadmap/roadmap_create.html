@@ -8,7 +8,18 @@
 {% include "components/nav/roadmap/roadmap_goback_nav.html" %}
 {% endblock %}
 
+{% block style %}
+<style>
+    .guideline__newroadmap{
+        padding-left:1rem;
+        color:blue;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 
-{% include "components/form/roadmap/roadmap.html" %}
+<h4 class="guideline__newroadmap"> 담당자를 아래 리스트에서 선택 또는 검색 하세요</h4>
+{% include "components/form/roadmap/roadmap.html" with users=users%}
+
 {% endblock %}

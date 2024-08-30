@@ -69,7 +69,12 @@
         </div>
     {% endfor %}
     <div id="badge_container"></div>
-    <ul id="user_search"></ul>
+    <ul id="user_search">
+        {% for useritem in users %}
+            
+            <li class="user_search__item" onclick="onBadgeClick({{useritem.id}}, '{{useritem.name}}')">{{useritem.name}}</li>
+        {% endfor %}
+    </ul>
     <button id="submit_btn" type="submit"> 저장 </button>
 </form>
 
@@ -93,14 +98,9 @@
                     li.className = "user_search__item"
                     li.innerHTML = name
                     li.addEventListener('click', ()=>{
-                        const badges = badgeContainer.querySelectorAll('.badge');
                         
-                        if (badges.length === 0){
-                            addBadge(id, name)
-                            assignee.value = id
-                            assignee.setAttribute('readonly', true)
-                            assignee.classList.toggle("disable")
-                        }
+                        onBadgeClick(id, name)
+
                     })
                     return li
                 })
@@ -109,7 +109,19 @@
                 search.replaceChildren(...list)
             })
     })
-
+    function onBadgeClick(id, name){
+        
+        const assignee = document.getElementById("id_assignee")
+        const badges = badgeContainer.querySelectorAll('.badge');
+                        
+        if (badges.length === 0){
+        
+            addBadge(id, name)
+            assignee.value = id
+            assignee.setAttribute('readonly', true)
+            assignee.classList.toggle("disable")
+        }
+    }
 
     const submit_btn = document.getElementById("submit_btn");
     submit_btn.addEventListener('click', (event)=>{
