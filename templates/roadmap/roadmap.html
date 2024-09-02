@@ -58,7 +58,14 @@
     .status_badge.status.In.Review {
         background-color: rgb(144, 0, 211);
     }
-    
+    .roadmaps__roadmap .reply_badge{
+        padding:0.05rem 0.3rem;
+        color:white;
+        background-color: rgb(135, 148, 222);
+        min-width:5px;
+        border-radius: 0.25rem;
+        font-size:0.6rem;
+    }
 </style>
 
 {% endblock %}
@@ -73,6 +80,7 @@
     <thead>
         <tr>
             <th class="roadmaps__th"> 로드맵 </th>
+            
             <th class="roadmaps__th"> 상태 </th>
             <th class="roadmaps__th"> 할당 </th>
             <th class="roadmaps__th"> 요청자 </th>
@@ -85,12 +93,21 @@
         {% for roadmap in roadmaps %}
 
         
-            <tr class="roadmaps__roadmap" onclick="window.location.href='detail/{{roadmap.id}}/'">
-                <td class="roadmaps__roadmap__item">{{roadmap.roadmap_name}}</td>
-                <td class="roadmaps__roadmap__item"><span class="status_badge status {{roadmap.status}}">{{roadmap.status}}</span></td>
-                <td class="roadmaps__roadmap__item">{{roadmap.assignee}}</td>
-                <td class="roadmaps__roadmap__item">{{roadmap.requester}}</td>
-                <td class="roadmaps__roadmap__item">{{roadmap.created_at}}</td>
+            <tr class="roadmaps__roadmap" onclick="window.location.href='detail/{{roadmap.roadmap.id}}/'">
+                <td class="roadmaps__roadmap__item">
+                    {{roadmap.roadmap.roadmap_name}} 
+                    {% if roadmap.comments|length > 0 %}
+                    <span class="reply_badge">
+                        
+                        {{roadmap.comments|length}}
+                    </span>
+                    {% endif %}
+                </td>
+                
+                <td class="roadmaps__roadmap__item"><span class="status_badge status {{roadmap.roadmap.status}}">{{roadmap.roadmap.status}}</span></td>
+                <td class="roadmaps__roadmap__item">{{roadmap.roadmap.assignee}}</td>
+                <td class="roadmaps__roadmap__item">{{roadmap.roadmap.requester}}</td>
+                <td class="roadmaps__roadmap__item">{{roadmap.roadmap.created_at|date:"Y-m-d"}}</td>
             </tr>
        
         {% endfor %}

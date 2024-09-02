@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
-from django.db.models import Q
-from django.http import HttpResponseRedirect, JsonResponse
+
+from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 from django.contrib.auth import get_user_model
@@ -11,17 +11,22 @@ from kbb_roadmap.views import is_authenticated
 from notification.views import create_notification
 # Create your views here.
 from comments.views import get_comment_list
-from comments.models import RoadmapComment, CommentLikes
+from comments.models import RoadmapComment
 import datetime
 def main(request):
     if not is_authenticated(request):
         return HttpResponseRedirect('/user/')
 
     if request.method == "GET":
-        
+        cont = []    
         roadmaps = list(models.Roadmap.objects.all().order_by("status", "-created_at"))
+
+        for roadmap in roadmaps:
+            comments = RoadmapComment.objects.filter(roadmap=roadmap)
+            cont.append({"roadmap":roadmap, "comments":comments})
+
         context = {
-            "roadmaps" : roadmaps
+            "roadmaps" : cont
         } 
         
         return render(request, 'roadmap/roadmap.html', context=context)
@@ -45,10 +50,31 @@ def detail(request, id):
         
         users = list(get_user_model().objects.filter(is_superuser=False))
         criteria = len(users)/2
-        registration_agreed_list = [{"name": registration_agrees[0].user.username, "picture": user.extra_data.get("picture")}for user in list(SocialAccount.objects.filter(user_id=registration_agrees[0].user.pk))]  if len(registration_agrees) > 0 else []
-        completion_agreed_list = [{"name": completion_agrees[0].user.username, "picture": user.extra_data.get("picture")}for user in list(SocialAccount.objects.filter(user_id=completion_agrees[0].user.pk))] if len(completion_agrees) > 0 else []
+
+        registration_agreed_list = []
+        for regi_agree in list(registration_agrees):
+            for user in list(SocialAccount.objects.filter(user_id=regi_agree.user.pk)):
+                name = regi_agree.user.username
+                picture = user.extra_data.get("picture")
+                registration_agreed_list.append({
+                    "name": name,
+                    "picture": picture
+                })
+        
+        completion_agreed_list = []
+        for comp_agree in list(completion_agrees):
+            for user in list(SocialAccount.objects.filter(user_id=comp_agree.user.pk)):
+                name = comp_agree.user.username
+                picture = user.extra_data.get("picture")
+                completion_agreed_list.append({
+                    "name": name,
+                    "picture": picture
+                })
+        
+        
         regi_rate = len(registration_agreed_list) / criteria
         comp_rate = len(completion_agreed_list) / criteria
+        
         roadmap_data = {
             "roadmap_id":id,
             "roadmap_name":roadmap[0].roadmap_name,
@@ -65,15 +91,12 @@ def detail(request, id):
             },
             "completion_agrees": {
                 "criteria":criteria,
-                "percentage": comp_rate * 100  if regi_rate <=1 else 100,
+                "percentage": comp_rate * 100  if comp_rate <=1 else 100,
                 "total":len(completion_agreed_list),
                 "list":completion_agreed_list
             }
         }
 
-        
-        # comments = models.RoadmapComment.objects.filter(roadmap=roadmap[0]) if len(roadmap) > 0 else None
-        # comments = 
         
         comments = RoadmapComment.objects.filter(roadmap=roadmap[0])
         
@@ -152,24 +175,24 @@ def agree(request, id, type):
         elif type == "completion":
             target = models.RoadmapCompletionAgreement.objects
 
-        agreements = target.filter(roadmap=roadmap[0], user=user)
-        len_agreement = len(agreements)
-        if len_agreement == 0:
+        agreements = target.filter(roadmap=roadmap[0], user_id=user.pk)
+        
+        if len(agreements) == 0:
             new_agreement = target.create(
                 roadmap = roadmap[0],
                 user = user
             )
             new_agreement.save()        
-            len_agreement += 1
+        
         else:
             agreements.delete()
-            len_agreement -= 1
         
+        total_agreers = target.filter(roadmap=roadmap[0])
 
         users = get_user_model().objects.filter(is_superuser=False)
         criteria = len(users) / 2
-        
-        if len_agreement >= criteria:
+
+        if len(total_agreers) >= criteria:
             
             if type == "registration":
                 roadmap.update(status="In Progress")
@@ -185,11 +208,6 @@ def agree(request, id, type):
                     roadmap.update(status="In Review")
         
         
-
-        
-        
-        # regi_rate = len(registration_agreed_list) / criteria
-        # comp_rate = len(completion_agreed_list) / criteria
         return HttpResponseRedirect(reverse("roadmap:detail", args=[id]))
 def complete(request, id):
     if request.method == "POST":

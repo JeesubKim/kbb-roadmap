@@ -20,11 +20,17 @@
         background-color: green;
         text-align: center;
         padding-left:1rem;
+        color:white;
+        /* font-weight:500; */
+        /* letter-spacing: 0.25rem; */
     }
+    
 </style>
 {% endblock %}
 
 <div class="progress_container">
-    <span class="progress__progressbar" style="width: {{percentage}}%;">{{ total }}</span>
+    
+    <span class="progress__progressbar" style="width: {{percentage}}%;">{{ total }} </span>
     
 </div>
+<small class="criteria_desc">조건: {{ criteria }} 명</small>

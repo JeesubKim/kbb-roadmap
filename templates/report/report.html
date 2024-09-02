@@ -43,6 +43,15 @@
         margin-top:1rem;
     }
 
+    .report_card .reply_badge{
+        padding:0.05rem 0.3rem;
+        color:white;
+        background-color: rgb(135, 148, 222);
+        min-width:5px;
+        border-radius: 0.25rem;
+        font-size:0.9rem;
+    }
+
 </style>
 {% endblock %}
 {% block nav%}
@@ -56,13 +65,19 @@
 
     {% for report in reports %}
         
-        <section class="report_card" onclick="window.location.href='detail/{{report.pk}}/'">
-            <h1 class="report_title">제목: {{report.report_subject}}</h1>
+        <section class="report_card" onclick="window.location.href='detail/{{report.report.pk}}/'">
+            <h1 class="report_title">
+                {{report.report.report_subject}} 
+                {% if report.comments|length > 0 %}
+                <span class="reply_badge">댓글: {{report.comments| length}}</span>
+
+                {% endif %}
+            </h1>
             <div class="img_container">
 
-                <img src="{{report.report_image.url}}" alt="report image" class="report_image">
+                <img src="{{report.report.report_image.url}}" alt="report image" class="report_image">
             </div>
-            <p class="report_content">{{report.report_content}}</p>
+            <p class="report_content">{{report.report.report_content}}</p>
             
         </section>
     {% endfor %}

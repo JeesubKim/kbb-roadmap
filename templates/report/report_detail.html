@@ -32,6 +32,14 @@
         height:24px;
         border-radius: 50%;
     }
+    .container .report_detail_container .report_title .reply_badge{
+        padding:0.05rem 0.3rem;
+        color:white;
+        background-color: rgb(135, 148, 222);
+        min-width:5px;
+        border-radius: 0.25rem;
+        font-size:1rem;
+    }
 </style>
 {% endblock %}
 {% block nav%}
@@ -44,7 +52,13 @@
 
     <section class="report_detail_container">
         
-        <h1 class="report_title">제목: {{report.report_subject}}</h1>
+        <h1 class="report_title">제목: {{report.report_subject}}
+            {% if comments|length > 0 %}
+            <span class="reply_badge">
+                댓글: {{comments|length}}
+            </span>
+            {% endif %}
+        </h1>
         <div class="reporter">
             작성자: 
             <img src="{{report.reporter.picture}}" />

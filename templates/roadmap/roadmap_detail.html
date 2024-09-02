@@ -78,6 +78,7 @@
         text-align: right;
         text-decoration: underline;
     }
+
     .roadmap__container .roadmap__detail .roadmap__detail__assignee,
     .roadmap__container .roadmap__detail .roadmap__detail__requester{
         display:flex;
@@ -96,7 +97,7 @@
     .roadmap__completion_userlist{
         display: flex;
         justify-content: flex-end;
-
+        gap:0.25rem;
     }
     .roadmap__container .roadmap__content .user_info {
         display: flex;
@@ -122,7 +123,10 @@
 <div class="roadmap__container">
     <section class="roadmap__content">
         <div class="roadmap__titlebar">
-            <h1 class="roadmap__title">{{roadmap.roadmap_name}}</h1>
+            <h1 class="roadmap__title">
+                {{roadmap.roadmap_name}} 
+
+            </h1>
             <div class="roadmap__status">상태 <span class="status_badge status {{roadmap.status}}">{{roadmap.status}}</span></div>
             <small class="roadmap__detail__created_at">
                 {{roadmap.created_at}} 에 요청
@@ -165,11 +169,11 @@
             <h3> 로드맵 등록 동의 현황 </h3>
             <ul class="roadmap__registration_userlist">
                 {% for user in roadmap.registration_agrees.list %}
-                <span class="user_info">
+                    <span class="user_info">
 
-                    <img src={{user.picture}} />
-                    <small>{{user.name}}</small>
-                </span>
+                        <img src={{user.picture}} />
+                        <small>{{user.name}}</small>
+                    </span>
                 {% endfor %}
 
             </ul>
@@ -202,7 +206,7 @@
                 {% endfor %}
             </ul>
 
-            {% include 'components/progress/progressbar.html' with criteria=roadmap.completion_agrees.criteria total=roadmap.completion_agrees.total percentage=roadmap.completion_agrees.percentage%}
+            {% include 'components/progress/progressbar.html' with criteria=roadmap.completion_agrees.criteria total=roadmap.completion_agrees.total percentage=roadmap.completion_agrees.percentage criteria=roadmap.completion_agrees.criteria %}
             
             {% if roadmap.status != "Done" %}
             <button class="agree_btn" onclick="onAgreeClicked({{roadmap.roadmap_id}}, 'completion')">

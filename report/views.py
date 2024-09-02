@@ -14,10 +14,14 @@ def main(request):
         return HttpResponseRedirect('/user/')
 
     if request.method == "GET":
+        cont = []
         reports = models.Report.objects.all().order_by("-created_at")
-        
+        for report in reports:
+            comments = ReportComment.objects.filter(report=report)
+            cont.append({"report":report, "comments":comments})
+
         context = {
-            "reports":reports
+            "reports":cont
         }
     return render(request, 'report/report.html', context=context)
 
@@ -35,7 +39,7 @@ def new_report(request):
         form = ReportForm(request.POST, request.FILES)
         
         if form.is_valid():
-            print("is_valid")
+        
             report_subject = form.cleaned_data["report_subject"]
             report_content = form.cleaned_data["report_content"]
             report_image = form.cleaned_data["report_image"]
